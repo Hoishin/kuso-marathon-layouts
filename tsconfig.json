@@ -3,6 +3,7 @@
 	"compilerOptions": {
 		"jsx": "react",
 		"incremental": true,
-		"lib": ["dom", "esnext"]
+		"lib": ["dom", "esnext"],
+		"resolveJsonModule": true
 	}
 }

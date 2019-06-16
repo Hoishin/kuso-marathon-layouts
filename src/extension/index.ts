@@ -1,6 +1,6 @@
-import {NodeCG} from 'nodecg/types/server';
+import {NodeCG} from './types/server';
+import {setupTweets} from './tweets';
 
 export = (nodecg: NodeCG) => {
-	// eslint-disable-next-line no-console
-	console.log(`${nodecg.bundleName} is ready`);
+	setupTweets(nodecg);
 };
