@@ -1,0 +1,113 @@
+{
+	"name": "kuso-marathon-layouts",
+	"version": "0.0.0",
+	"private": true,
+	"license": "Apache-2.0",
+	"scripts": {
+		"build": "run-s build:*",
+		"build:dashboard": "parcel build \"src/dashboard/html/*.html\" --out-dir dashboard --public-url .",
+		"build:extension": "parcel build src/extension/index.ts --out-dir extension --target node --no-minify",
+		"build:graphics": "parcel build \"src/graphics/pages/*.html\" --out-dir graphics --public-url .",
+		"watch": "run-p watch:*",
+		"watch:dashboard": "parcel watch \"src/dashboard/html/*.html\" --out-dir dashboard --public-url .",
+		"watch:extension": "parcel watch src/extension/index.ts --out-dir extension --target node",
+		"watch:graphics": "parcel watch \"src/graphics/pages/*.html\" --out-dir graphics --public-url .",
+		"format": "prettier --write \"**/*.{ts,tsx,json,yml,css,html}\"",
+		"postinstall": "include-nodecg postinstall",
+		"start": "include-nodecg start"
+	},
+	"husky": {
+		"pre-commit": "lint-staged"
+	},
+	"browserslist": [
+		"last 2 chrome versions"
+	],
+	"lint-staged": {
+		"concurrent": false,
+		"linters": {
+			"*.{ts,tsx,json,yml,css,html}": [
+				"prettier --write",
+				"git add"
+			],
+			"*.{ts,tsx}": [
+				"eslint --fix",
+				"git add"
+			],
+			"package.json": [
+				"sort-package-json",
+				"git add"
+			]
+		}
+	},
+	"prettier": "@hoishin/prettierrc",
+	"dependencies": {
+		"include-nodecg": "^0.0.1-1",
+		"nodecg": "^1.4.0"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.4.5",
+		"@hoishin/eslint-config-ts": "^0.0.5",
+		"@hoishin/prettierrc": "^2.1.1",
+		"@hoishin/tsconfig": "^1.0.0",
+		"@types/lodash": "^4.14.132",
+		"@types/node": "10",
+		"@types/react": "^16.8.18",
+		"@types/react-dom": "^16.8.4",
+		"@types/styled-components": "^4.1.16",
+		"bower": "^1.8.8",
+		"del": "^4.1.1",
+		"eslint": "^5.16.0",
+		"eslint-config-prettier": "^4.2.0",
+		"eslint-plugin-react-hooks": "^1.6.0",
+		"husky": "^2.1.0",
+		"lint-staged": "^8.1.5",
+		"lodash": "^4.17.11",
+		"modern-normalize": "^0.5.0",
+		"npm-run-all": "^4.1.5",
+		"parcel-bundler": "~1.11.0",
+		"prettier": "^1.17.0",
+		"react": "^16.8.6",
+		"react-dom": "^16.8.6",
+		"sort-package-json": "^1.22.1",
+		"styled-components": "^4.3.1",
+		"ts-node": "^8.1.0",
+		"typescript": "3.4.5"
+	},
+	"nodecg": {
+		"compatibleRange": "^1.0.0",
+		"dashboardPanels": [
+			{
+				"name": "dummy",
+				"title": "Dummy",
+				"file": "dummy.html"
+			}
+		],
+		"graphics": [
+			{
+				"file": "sd1.html",
+				"height": 1280,
+				"width": 720
+			},
+			{
+				"file": "sd2.html",
+				"height": 1280,
+				"width": 720
+			},
+			{
+				"file": "hd1.html",
+				"height": 1280,
+				"width": 720
+			},
+			{
+				"file": "hd2.html",
+				"height": 1280,
+				"width": 720
+			},
+			{
+				"file": "ds1.html",
+				"height": 1280,
+				"width": 720
+			}
+		]
+	}
+}
