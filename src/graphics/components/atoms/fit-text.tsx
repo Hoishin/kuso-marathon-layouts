@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import {FunctionComponentWithClassName} from '../../../shared/react';
 
 const Container = styled.div`
-	display: grid;
+	display: flex;
 	justify-content: center;
+	align-items: center;
 	overflow: hidden;
 `;
 

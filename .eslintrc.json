@@ -7,6 +7,7 @@
 	"rules": {
 		"default-case": 0,
 		"consistent-return": 0,
+		"require-unicode-regexp": 0,
 		"@typescript-eslint/camelcase": 0,
 		"@typescript-eslint/promise-function-async": 0,
 		"@typescript-eslint/explicit-function-return-type": 0,
