@@ -3,8 +3,9 @@ FROM node:10-alpine AS build
 RUN apk add --no-cache git
 
 WORKDIR /app
-COPY package.json tsconfig.json yarn.lock ./
+COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
+COPY tsconfig.dashboard.json tsconfig.extension.json tsconfig.graphics.json tsconfig.json webpack.config.ts ./
 COPY src ./src
 RUN NODE_ENV=production yarn build
 
