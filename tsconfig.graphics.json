@@ -3,5 +3,9 @@
 	"compilerOptions": {
 		"module": "esnext"
 	},
-	"include": ["./src/graphics/pages/*.ts", "./src/graphics/pages/*.tsx", "./src/graphics/**/*.d.ts"]
+	"include": [
+		"./src/graphics/pages/*.ts",
+		"./src/graphics/pages/*.tsx",
+		"./src/types/**/*.d.ts"
+	]
 }

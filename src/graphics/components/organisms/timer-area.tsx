@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {FunctionComponentWithClassName} from '../../../shared/react';
+import {FunctionComponentWithClassName} from '../../../types/react';
 import {textStyle, absoluteCenterContent, boxBackground} from '../../styles';
 import FitText from '../atoms/fit-text';
 

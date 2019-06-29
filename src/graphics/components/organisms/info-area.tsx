@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {textStyle, absoluteCenterContent, boxBackground} from '../../styles';
-import {FunctionComponentWithClassName} from '../../../shared/react';
+import {FunctionComponentWithClassName} from '../../../types/react';
 import FitText from '../atoms/fit-text';
 
 const Container = styled.div`

@@ -1,6 +1,6 @@
 import React, {useRef, useEffect} from 'react';
 import styled from 'styled-components';
-import {FunctionComponentWithClassName} from '../../../shared/react';
+import {FunctionComponentWithClassName} from '../../../types/react';
 
 const Container = styled.div`
 	display: flex;

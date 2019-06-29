@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {FunctionComponentWithClassName} from '../../../shared/react';
+import {FunctionComponentWithClassName} from '../../../types/react';
 import twitter from '../../assets/social-icons/twitter.png';
 import twitch from '../../assets/social-icons/twitch.png';
 

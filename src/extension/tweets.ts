@@ -22,13 +22,6 @@ export const setupTweets = (nodecg: NodeCG) => {
 		defaultValue: {connection: 'disconnected', error: false},
 	});
 
-	// Keep tweets replicant less than 100 items
-	tweetsRep.on('change', (newVal) => {
-		if (newVal.length > 100) {
-			tweetsRep.value = newVal.slice(0, 90);
-		}
-	});
-
 	const twit = new Twit({
 		consumer_key: twitterConfig.consumerKey,
 		consumer_secret: twitterConfig.consumerSecret,
@@ -73,7 +66,14 @@ export const setupTweets = (nodecg: NodeCG) => {
 					},
 					content: rawTweet.text,
 				};
-				tweetsRep.value = [tweet, ...(tweetsRep.value || [])];
+				if (tweetsRep.value) {
+					if (tweetsRep.value.length >= 100) {
+						tweetsRep.value.shift();
+					}
+					tweetsRep.value.push(tweet);
+				} else {
+					tweetsRep.value = [tweet];
+				}
 			});
 			stream.on('disconnect', (msg) => {
 				// Twitter disconnected the connection

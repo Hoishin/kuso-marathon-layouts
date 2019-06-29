@@ -75,7 +75,7 @@ const browserConfig = (name: string) => {
 						filename: `${entryName}.html`,
 						chunks: [entryName],
 						title: entryName,
-						template: `webpack-templates/${name}.html`,
+						template: `src/webpack-templates/${name}.html`,
 					}),
 			),
 		],
