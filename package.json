@@ -13,7 +13,7 @@
 		"watch:extension": "parcel watch src/extension/index.ts --out-dir extension --target node",
 		"watch:graphics": "parcel watch \"src/graphics/pages/*.html\" --out-dir graphics --public-url .",
 		"format": "prettier --write \"**/*.{ts,tsx,json,yml,css,html}\"",
-		"postinstall": "include-nodecg postinstall && rm -rf node_modules/nodecg/cfg && ln -s ../../cfg node_modules/nodecg",
+		"postinstall": "include-nodecg postinstall",
 		"start": "include-nodecg start"
 	},
 	"husky": {
@@ -41,7 +41,7 @@
 	},
 	"prettier": "@hoishin/prettierrc",
 	"dependencies": {
-		"include-nodecg": "^0.0.1-1",
+		"include-nodecg": "^0.0.1-5",
 		"lodash": "^4.17.11",
 		"nodecg": "^1.4.0",
 		"twit": "^2.2.11"
