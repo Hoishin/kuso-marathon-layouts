@@ -1,5 +1,5 @@
 import {css, createGlobalStyle} from 'styled-components';
-import yasashisaGothic from './assets/07YasashisaGothic.woff2';
+import yasashisaGothic from './assets/07YasashisaGothic/07YasashisaGothic.woff2';
 
 export const boxBackground = css`
 	background: linear-gradient(
