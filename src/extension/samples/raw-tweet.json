@@ -10,6 +10,8 @@
 	"in_reply_to_user_id": null,
 	"in_reply_to_user_id_str": null,
 	"in_reply_to_screen_name": null,
+	"retweeted_status": {},
+	"quoted_status": {},
 	"user": {
 		"id": 873501087956820000,
 		"id_str": "873501087956819968",

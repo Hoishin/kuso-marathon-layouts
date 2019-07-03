@@ -1,5 +1,5 @@
 import Twit from 'twit';
-import {throttle} from 'lodash';
+import _ from 'lodash';
 import {NodeCG} from './types/server';
 import tweetSample from './samples/raw-tweet.json';
 import {Tweet} from './types/nodecg';
@@ -15,8 +15,18 @@ export const setupTweets = (nodecg: NodeCG) => {
 
 	const streamLogger = new nodecg.Logger('extension/tweets.ts:stream');
 	const tweetsRep = nodecg.Replicant('tweets', {defaultValue: []});
+	const addTweet = (newTweet: Tweet) => {
+		if (
+			tweetsRep.value &&
+			!tweetsRep.value.some((tweet) => tweet.id === newTweet.id)
+		) {
+			tweetsRep.value = [newTweet, ...tweetsRep.value.slice(0, 99)];
+		} else {
+			tweetsRep.value = [newTweet];
+		}
+	};
 	const tweetTrackWordsRep = nodecg.Replicant('tweetTrackWords', {
-		defaultValue: [],
+		defaultValue: ['#nhk'],
 	});
 	const tweetStreamStatus = nodecg.Replicant('tweetStreamStatus', {
 		defaultValue: {connection: 'disconnected', error: false},
@@ -34,16 +44,20 @@ export const setupTweets = (nodecg: NodeCG) => {
 	 */
 	let stream: Twit.Stream | null = null;
 
-	const startStream = throttle((trackWords: string[]) => {
+	const startStream = _.throttle((trackWords: string[]) => {
 		try {
 			if (stream) {
 				stream.stop();
 			}
 
-			tweetStreamStatus.value = {
-				connection: 'disconnected',
-				error: false,
-			};
+			if (tweetStreamStatus.value) {
+				tweetStreamStatus.value.connection = 'disconnected';
+			} else {
+				tweetStreamStatus.value = {
+					connection: 'disconnected',
+					error: false,
+				};
+			}
 
 			stream = twitterConfig.debug
 				? twit.stream('statuses/sample')
@@ -57,29 +71,43 @@ export const setupTweets = (nodecg: NodeCG) => {
 					if (tweetStreamStatus.value.error === true) {
 						tweetStreamStatus.value.error = false;
 					}
+				} else {
+					tweetStreamStatus.value = {
+						connection: 'connected',
+						error: false,
+					};
 				}
-				const tweet: Tweet = {
+
+				if (
+					rawTweet.retweeted_status ||
+					rawTweet.quoted_status ||
+					rawTweet.in_reply_to_user_id
+				) {
+					return;
+				}
+
+				const newTweet: Tweet = {
 					id: rawTweet.id_str,
 					user: {
+						icon: rawTweet.user.profile_image_url_https,
 						name: rawTweet.user.name,
 						screenName: rawTweet.user.screen_name,
 					},
 					content: rawTweet.text,
 				};
-				if (tweetsRep.value) {
-					if (tweetsRep.value.length >= 100) {
-						tweetsRep.value.shift();
-					}
-					tweetsRep.value.push(tweet);
-				} else {
-					tweetsRep.value = [tweet];
-				}
+				addTweet(newTweet);
 			});
 			stream.on('disconnect', (msg) => {
 				// Twitter disconnected the connection
 				streamLogger.error('disconnect', msg);
 				if (tweetStreamStatus.value) {
+					tweetStreamStatus.value.connection = 'disconnected';
 					tweetStreamStatus.value.error = true;
+				} else {
+					tweetStreamStatus.value = {
+						connection: 'disconnected',
+						error: true,
+					};
 				}
 				startStream(trackWords);
 			});
@@ -87,14 +115,20 @@ export const setupTweets = (nodecg: NodeCG) => {
 				// Started connection attempt
 				if (tweetStreamStatus.value) {
 					tweetStreamStatus.value.connection = 'connecting';
+				} else {
+					tweetStreamStatus.value = {
+						connection: 'connecting',
+						error: false,
+					};
 				}
 			});
 			stream.on('reconnect', (_req, _res, connectInterval: number) => {
 				// Twitter is having problems or we get rate limited. Reconnetion scheduled.
 				streamLogger.warn(`Reconnecting in ${connectInterval}ms`);
-				if (tweetStreamStatus.value) {
-					tweetStreamStatus.value.connection = 'connecting';
-				}
+				tweetStreamStatus.value = {
+					connection: 'connecting',
+					error: true,
+				};
 			});
 			stream.on('connected', () => {
 				// Successfully connected stream
@@ -124,6 +158,7 @@ export const setupTweets = (nodecg: NodeCG) => {
 			if (tweetStreamStatus.value) {
 				tweetStreamStatus.value.error = true;
 			}
+			startStream(trackWords);
 		}
 	}, 10 * 1000);
 

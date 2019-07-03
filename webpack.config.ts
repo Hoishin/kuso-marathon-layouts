@@ -31,7 +31,7 @@ const browserConfig = (name: string) => {
 		entry,
 		output: {
 			path: path.resolve(__dirname, name),
-			filename: 'js/[name].[contenthash].js',
+			filename: 'js/[name].js',
 		},
 		module: {
 			rules: [
@@ -46,12 +46,12 @@ const browserConfig = (name: string) => {
 					],
 				},
 				{
-					test: /\.(png|woff2?)$/,
+					test: /\.(png|woff2?|svg)$/,
 					loaders: [
 						{
 							loader: 'file-loader',
 							options: {
-								name: 'img/[name].[contenthash].[ext]',
+								name: 'img/[name].[ext]',
 							},
 						},
 					],
@@ -67,7 +67,7 @@ const browserConfig = (name: string) => {
 		},
 		plugins: [
 			new MiniCssExtractPlugin({
-				filename: 'css/[name].[contenthash].css',
+				filename: 'css/[name].css',
 			}),
 			...Object.keys(entry).map(
 				(entryName) =>

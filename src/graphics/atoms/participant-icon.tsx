@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import {FunctionComponentWithClassName} from '../../../types/react';
-import runnerIcon from '../../assets/controller.png';
-import commentatorIcon from '../../assets/mic.png';
+import {FunctionComponentWithClassName} from '../../types/react';
+import runnerIcon from '../assets/controller.png';
+import commentatorIcon from '../assets/mic.png';
 
 export type ParticipantType = 'runner' | 'commentator';
 

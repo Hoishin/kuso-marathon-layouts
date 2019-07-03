@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import {FunctionComponentWithClassName} from '../../../types/react';
-import twitter from '../../assets/social-icons/twitter.png';
-import twitch from '../../assets/social-icons/twitch.png';
+import {FunctionComponentWithClassName} from '../../types/react';
+import twitter from '../assets/social-icons/twitter.png';
+import twitch from '../assets/social-icons/twitch.png';
 
 export type Media = 'twitter' | 'twitch';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {FunctionComponentWithClassName} from '../../types/react';
+import {FunctionComponentWithClassName} from '../types/react';
 
 const Container = styled.div`
 	position: absolute;

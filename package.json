@@ -101,9 +101,16 @@
 		"compatibleRange": "^1.0.0",
 		"dashboardPanels": [
 			{
-				"name": "dummy",
-				"title": "Dummy",
-				"file": "dummy.html"
+				"name": "schedule",
+				"title": "スケジュール",
+				"file": "schedule.html",
+				"width": 4
+			},
+			{
+				"name": "twitter",
+				"title": "ツイート表示",
+				"file": "twitter.html",
+				"width": 4
 			}
 		],
 		"graphics": [

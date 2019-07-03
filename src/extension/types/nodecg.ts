@@ -23,6 +23,7 @@ export type Run = {
 export type Tweet = {
 	id: string;
 	user: {
+		icon: string;
 		name: string;
 		screenName: string;
 	};

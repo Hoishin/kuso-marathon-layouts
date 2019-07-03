@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import {textStyle, absoluteCenterContent, boxBackground} from '../../styles';
-import {FunctionComponentWithClassName} from '../../../types/react';
-import FitText from '../atoms/fit-text';
+import {textStyle, absoluteCenterContent, boxBackground} from '../styles';
+import {FunctionComponentWithClassName} from '../../types/react';
+import FitText from '../../shared/atoms/fit-text';
 
 const Container = styled.div`
 	font-size: 16.667px;
