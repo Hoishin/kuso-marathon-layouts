@@ -63,7 +63,6 @@
 		"@types/styled-components": "^4.1.16",
 		"@types/twit": "^2.2.22",
 		"@types/webpack": "^4.4.34",
-		"@types/webpack-bundle-analyzer": "^2.13.1",
 		"@types/webpack-merge": "^4.1.5",
 		"@types/webpack-node-externals": "^1.6.3",
 		"babel-loader": "^8.0.6",
@@ -94,7 +93,6 @@
 		"ts-nodecg": "^0.1.0",
 		"typescript": "3.4.5",
 		"webpack": "^4.35.0",
-		"webpack-bundle-analyzer": "^3.3.2",
 		"webpack-cli": "^3.3.5",
 		"webpack-merge": "^4.2.1",
 		"webpack-node-externals": "^1.7.2"

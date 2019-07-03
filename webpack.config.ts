@@ -6,7 +6,6 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import nodeExternals from 'webpack-node-externals';
 import HardSourcePlugin from 'hard-source-webpack-plugin';
-import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -79,26 +78,7 @@ const browserConfig = (name: string) => {
 						template: `src/webpack-templates/${name}.html`,
 					}),
 			),
-			new BundleAnalyzerPlugin({
-				analyzerMode: 'static',
-				reportFilename: path.resolve(
-					__dirname,
-					`bundle-analyzer/${name}.html`,
-				),
-			}),
 		],
-		optimization: {
-			splitChunks: {
-				chunks: 'all',
-				cacheGroups: {
-					common: {
-						minChunks: Math.max(Object.keys(entry).length, 2),
-					},
-					vendors: false,
-					default: false,
-				},
-			},
-		},
 	});
 };
 
