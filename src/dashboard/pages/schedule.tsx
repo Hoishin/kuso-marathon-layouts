@@ -4,9 +4,6 @@ import styled from 'styled-components';
 import {render} from '../render';
 import InfoBlock from '../molecules/info-block';
 
-const PRIMARY_COLOR = '#2f3a4f';
-// const SECONDARY_COLOR = '#00bebe';
-
 const Container = styled.div`
 	padding: 8px;
 	width: 100%;
@@ -25,9 +22,6 @@ const Button = styled.button`
 	width: 100%;
 	height: 100%;
 	cursor: pointer;
-	background-color: ${PRIMARY_COLOR};
-	color: white;
-	font-weight: bold;
 `;
 
 const Content = styled.div`

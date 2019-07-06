@@ -111,6 +111,12 @@
 				"title": "ツイート表示",
 				"file": "twitter.html",
 				"width": 4
+			},
+			{
+				"name": "timer",
+				"title": "タイマー",
+				"file": "timer.html",
+				"width": 4
 			}
 		],
 		"graphics": [

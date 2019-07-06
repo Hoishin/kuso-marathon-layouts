@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import {Tweet} from '../../extension/types/nodecg';
 import InfoBlock from '../molecules/info-block';
-import sendIcon from './send.svg';
-import trashIcon from './trash.svg';
+import sendIcon from '../assets/send.svg';
+import trashIcon from '../assets/trash.svg';
 
 const Container = styled.div`
 	display: grid;
@@ -23,10 +23,16 @@ const Controls = styled.div`
 	align-content: center;
 	justify-content: center;
 	gap: 8px;
+`;
 
-	& > img {
-		cursor: pointer;
-	}
+const ControlButton = styled.button`
+	border: none;
+	background: transparent;
+	padding: 0;
+	cursor: pointer;
+	display: grid;
+	align-items: center;
+	justify-items: center;
 `;
 
 const TweetItem: React.FunctionComponent<{tweet: Tweet}> = (props) => {
@@ -36,8 +42,12 @@ const TweetItem: React.FunctionComponent<{tweet: Tweet}> = (props) => {
 			<Icon src={props.tweet.user.icon} />
 			<InfoBlock label={label} content={props.tweet.content} />
 			<Controls>
+				<ControlButton>
 					<img src={sendIcon} />
+				</ControlButton>
+				<ControlButton>
 					<img src={trashIcon} />
+				</ControlButton>
 			</Controls>
 		</Container>
 	);
