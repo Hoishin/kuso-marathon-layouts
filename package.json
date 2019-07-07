@@ -117,6 +117,12 @@
 				"title": "タイマー",
 				"file": "timer.html",
 				"width": 4
+			},
+			{
+				"name": "info-text",
+				"title": "infoテキスト",
+				"file": "info-text.html",
+				"width": 4
 			}
 		],
 		"graphics": [
@@ -142,6 +148,11 @@
 			},
 			{
 				"file": "ds1.html",
+				"height": 1280,
+				"width": 720
+			},
+			{
+				"file": "break.html",
 				"height": 1280,
 				"width": 720
 			}

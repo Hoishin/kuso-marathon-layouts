@@ -1,6 +1,8 @@
 import {css, createGlobalStyle} from 'styled-components';
 import yasashisaGothic from './assets/07YasashisaGothic/07YasashisaGothic.woff2';
 
+const YASASHISA_GOTHIC = '07YasashisaGothic';
+
 export const boxBackground = css`
 	background: linear-gradient(
 		to right,
@@ -16,13 +18,13 @@ export const absoluteCenterContent = css`
 `;
 
 export const textStyle = css`
-	font-family: '07YasashisaGothic', sans-serif;
+	font-family: ${YASASHISA_GOTHIC}, sans-serif;
 	color: white;
 `;
 
 export const GlobalStyle = createGlobalStyle`
 	@font-face {
-		font-family: '07YasashisaGothic';
+		font-family: ${YASASHISA_GOTHIC};
 		src: url(${yasashisaGothic});
 	}
 `;
