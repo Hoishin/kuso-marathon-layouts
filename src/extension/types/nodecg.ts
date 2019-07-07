@@ -12,10 +12,11 @@ export type Run = {
 	runners: Participant[];
 	commentators: Participant[];
 	/**
-	 * In milliseconds
+	 * In seconds
 	 */
 	estimate: number;
 	startTime: number;
+	platform: string;
 };
 
 export type Tweet = {
@@ -53,8 +54,7 @@ export type Timer = {
 
 export type ReplicantMap = {
 	schedule: Run[];
-	currentRun: Run | null;
-	nextRun: Run | null;
+	currentRunIndex: number;
 	tweets: Tweet[];
 	info: Info[];
 	tweetTrackWords: string[];
@@ -85,4 +85,5 @@ export type MessageMap = {
 	updateSchedule: {};
 	previousRun: {},
 	nextRun: {},
+	showInfo: {data: {text: string}}
 };

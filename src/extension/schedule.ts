@@ -3,6 +3,7 @@ import {google} from 'googleapis';
 import _ from 'lodash';
 import * as moment from 'moment';
 import {NodeCG} from './types/server';
+import {Participant, Run} from './types/nodecg';
 
 const UPDATE_INTERVAL = 30 * 1000;
 
@@ -22,7 +23,7 @@ export const setupSchedule = (nodecg: NodeCG) => {
 		try {
 			const res = await sheets.spreadsheets.values.batchGet({
 				spreadsheetId: googleConfig.spreadsheetId,
-				ranges: ['schedule!A:G'],
+				ranges: ['schedule!A:N'],
 			});
 			const sheetValues = res.data.valueRanges;
 			if (!sheetValues) {
@@ -38,21 +39,37 @@ export const setupSchedule = (nodecg: NodeCG) => {
 			}
 
 			const [labels, ...contents] = scheduleValue.values;
+
 			const games = contents.map((content) =>
 				_.zipObject(labels, content),
 			);
 
-			const newSchedule = games.map((game, index) => {
+			const newSchedule = games.map<Run>((game, index) => {
+				const runner1: Participant = {
+					name: game.runner1 || '???',
+					nico: game.runner1Nico || undefined,
+					twitch: game.runner1Twitch || undefined,
+					twitter: game.runner1Twitter || undefined,
+				};
+				const runner2: Participant = {
+					name: game.runner2 || '???',
+					nico: game.runner2Nico || undefined,
+					twitch: game.runner2Twitch || undefined,
+					twitter: game.runner2Twitter || undefined,
+				};
 				return {
 					index,
 					category: game.category || '???',
-					commentators: game.commentator || '???',
-					estimate: game.estimate ? moment.duration().asSeconds() : 0,
+					commentators: [{name: game.commentator || ''}],
+					estimate: game.estimate
+						? moment.duration(game.estimate).asSeconds()
+						: 0,
 					game: game.title || '???',
-					runners: [game.runner1 || '???', game.runner2 || '???'],
+					runners: [runner1, runner2],
 					startTime: game.startTime
 						? new Date(`${game.startTime}+0900`).getTime()
 						: 0,
+					platform: game.platform,
 				};
 			});
 
@@ -60,10 +77,7 @@ export const setupSchedule = (nodecg: NodeCG) => {
 				scheduleRep.value = newSchedule;
 			}
 		} catch (error) {
-			nodecg.log.error(
-				'Failed to update schedule:',
-				error.stack,
-			);
+			nodecg.log.error('Failed to update schedule:', error.stack);
 		}
 	};
 

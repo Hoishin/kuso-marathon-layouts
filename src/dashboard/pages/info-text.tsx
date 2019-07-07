@@ -1,6 +1,6 @@
 import 'modern-normalize/modern-normalize.css';
-import React from 'react';
-import styled from 'styled-components';
+import React, {useState} from 'react';
+import styled, { css } from 'styled-components';
 import {render} from '../render';
 
 const Container = styled.div`
@@ -16,12 +16,34 @@ const TextArea = styled.textarea`
 const Submit = styled.button`
 	justify-self: end;
 	padding: 2px;
-	cursor: pointer;
+	${(props: {disabled: boolean}) =>
+		props.disabled
+			? null
+			: css`
+					cursor: pointer;
+			  `}
 `;
 
-render(
-	<Container>
-		<TextArea />
-		<Submit>表示</Submit>
-	</Container>,
-);
+const InfoText: React.FunctionComponent = () => {
+	const [text, setText] = useState('');
+	return (
+		<Container>
+			<TextArea
+				value={text}
+				onChange={(e) => {
+					setText(e.target.value);
+				}}
+			/>
+				<Submit
+					onClick={() => {
+						nodecg.sendMessage('showInfo', {text});
+					}}
+					disabled={!text}
+				>
+					表示
+				</Submit>
+		</Container>
+	);
+};
+
+render(<InfoText />);

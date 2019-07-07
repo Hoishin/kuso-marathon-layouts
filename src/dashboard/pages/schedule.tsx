@@ -1,8 +1,12 @@
 import 'modern-normalize/modern-normalize.css';
 import React from 'react';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import {render} from '../render';
 import InfoBlock from '../molecules/info-block';
+import {FunctionComponentWithClassName} from '../../types/react';
+import {Run} from '../../extension/types/nodecg';
+import {formatTime} from '../../shared/format-time';
+import {useReplicant} from '../../use-nodecg/use-replicant';
 
 const Container = styled.div`
 	padding: 8px;
@@ -21,7 +25,12 @@ const Control = styled.div`
 const Button = styled.button`
 	width: 100%;
 	height: 100%;
-	cursor: pointer;
+	${(props: {disabled: boolean}) =>
+		props.disabled
+			? null
+			: css`
+					cursor: pointer;
+			  `}
 `;
 
 const Content = styled.div`
@@ -65,44 +74,88 @@ const ContentTitle = styled.div`
 	font-weight: bold;
 `;
 
-const Run = (
-	<ContentItem>
-		<ContentTitle>現在のゲーム (#12)</ContentTitle>
-		<InfoBlock
-			label='ゲーム'
-			content={'くまのプーさんのホームランダービー'.repeat(10)}
-		/>
-		<MiscGrid>
-			<InfoBlock label='カテゴリ' content='Any%' />
-			<InfoBlock label='機種' content='Mega Drive' />
-		</MiscGrid>
-		<RunnerGrid>
-			{Array.from({length: 4}).map((_, i) => (
+const RunItem: FunctionComponentWithClassName<{title: string; run: Run}> = ({
+	title,
+	run,
+}) => {
+	return (
+		<ContentItem>
+			<ContentTitle>{`${title} (#${run.index + 1})`}</ContentTitle>
+			<InfoBlock label='ゲーム' content={run.game} />
+			<MiscGrid>
+				<InfoBlock label='カテゴリ' content={run.category} />
+				<InfoBlock label='機種' content={run.platform} />
+			</MiscGrid>
+			<RunnerGrid>
+				{Array.from({length: 4}).map(
+					(_, i) =>
+						run.runners[i] && (
+							<InfoBlock
+								key={i}
+								label={`走者${i + 1}`}
+								content={run.runners[i].name}
+							/>
+						),
+				)}
+			</RunnerGrid>
+			<MiscGrid>
 				<InfoBlock
-					key={i}
-					label={`走者${i + 1}`}
-					content={'ほげほげ'.repeat(Math.random() * 3 + 1)}
+					label='解説'
+					content={run.commentators.map((c) => c.name).join(', ')}
 				/>
-			))}
-		</RunnerGrid>
-		<MiscGrid>
-			<InfoBlock label='解説' content='ふがふが' />
-			<InfoBlock label='予定タイム' content='1:23:46' />
-		</MiscGrid>
-	</ContentItem>
-);
+				<InfoBlock
+					label='予定タイム'
+					content={formatTime(run.estimate)}
+				/>
+			</MiscGrid>
+		</ContentItem>
+	);
+};
 
-render(
-	<Container>
-		<Control>
-			<Button>←前</Button>
-			<div />
-			<Button>次→</Button>
-		</Control>
-		<Content>
-			{Run}
-			<Divider />
-			{Run}
-		</Content>
-	</Container>,
-);
+const scheduleRep = nodecg.Replicant('schedule');
+const currentRunRep = nodecg.Replicant('currentRunIndex');
+const Schedule: React.FunctionComponent = () => {
+	const [schedule] = useReplicant(scheduleRep);
+	const [currentRunIndex] = useReplicant(currentRunRep);
+	if (schedule === undefined || currentRunIndex === undefined) {
+		return null;
+	}
+	const currentRun =
+		currentRunIndex === null ? null : (
+			<RunItem title='現在のゲーム' run={schedule[currentRunIndex]} />
+		);
+	const nextRun =
+		currentRunIndex === null || !schedule[currentRunIndex + 1] ? null : (
+			<RunItem title='次のゲーム' run={schedule[currentRunIndex + 1]} />
+		);
+	return (
+		<Container>
+			<Control>
+				<Button
+					onClick={() => {
+						nodecg.sendMessage('previousRun');
+					}}
+					disabled={currentRunIndex === 0}
+				>
+					←前
+				</Button>
+				<div />
+				<Button
+					onClick={() => {
+						nodecg.sendMessage('nextRun');
+					}}
+					disabled={currentRunIndex >= schedule.length - 1}
+				>
+					次→
+				</Button>
+			</Control>
+			<Content>
+				{currentRun}
+				<Divider />
+				{nextRun}
+			</Content>
+		</Container>
+	);
+};
+
+render(<Schedule />);

@@ -17,7 +17,8 @@ export const setupTimer = (nodecg: NodeCG) => {
 	const timerRep: typeof _timerRep & {
 		value: NonNullable<typeof _timerRep['value']>;
 	} = _timerRep as any;
-	const currentRunRep = nodecg.Replicant('currentRun');
+	const currentRunRep = nodecg.Replicant('currentRunIndex', {defaultValue: 0});
+	const scheduleRunRep = nodecg.Replicant('schedule', {defaultValue: []});
 
 	let tickInterval: NodeJS.Timer;
 	let lastIncrement: number;
@@ -49,7 +50,8 @@ export const setupTimer = (nodecg: NodeCG) => {
 	const reduceResultState = () => {
 		const allRunnerFinished =
 			currentRunRep.value &&
-			currentRunRep.value.runners.every((_, i) => {
+			scheduleRunRep.value &&
+			scheduleRunRep.value[currentRunRep.value].runners.every((_, i) => {
 				const result = timerRep.value.results[i];
 				return result ? result.state === TimerState.Finished : false;
 			});
@@ -108,7 +110,11 @@ export const setupTimer = (nodecg: NodeCG) => {
 		}
 		result.time = time;
 		reduceResultState();
-		if (currentRunRep.value && currentRunRep.value.runners.length === 1) {
+		if (
+			currentRunRep.value &&
+			scheduleRunRep.value &&
+			scheduleRunRep.value[currentRunRep.value].runners.length === 1
+		) {
 			timerRep.value.time = time;
 		}
 	});
