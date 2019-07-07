@@ -1,5 +1,5 @@
 import {CreateNodecgConstructor, CreateNodecgInstance} from 'ts-nodecg/browser';
-import {ReplicantMap} from '../extension/types/nodecg';
+import {ReplicantMap, MessageMap} from '../extension/types/nodecg';
 import {Configschema} from '../extension/types/configschema';
 
 export interface FontFaceSet {
@@ -13,7 +13,7 @@ export type NodecgInstance = CreateNodecgInstance<
 	Configschema,
 	'kuso-marathon-layouts',
 	ReplicantMap,
-	{},
+	MessageMap,
 	false
 >;
 
@@ -21,7 +21,7 @@ export type NodecgConstructor = CreateNodecgConstructor<
 	Configschema,
 	'kuso-marathon-layouts',
 	ReplicantMap,
-	{},
+	MessageMap,
 	false
 >;
 

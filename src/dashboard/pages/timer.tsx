@@ -1,11 +1,16 @@
 import 'modern-normalize/modern-normalize.css';
 import React from 'react';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import {render} from '../render';
 import editIcon from '../assets/edit.svg';
 import pauseIcon from '../assets/pause.svg';
 import playIcon from '../assets/play.svg';
 import stopIcon from '../assets/stop.svg';
+import {useReplicant} from '../../use-nodecg/use-replicant';
+import {TimerState} from '../../extension/types/nodecg';
+import {formatTime} from '../../shared/format-time';
+
+const timerRep = nodecg.Replicant('timer');
 
 const Container = styled.div`
 	padding: 8px;
@@ -27,7 +32,11 @@ const TimeDisplay = styled.div`
 const TimerButton = styled.button`
 	width: 100%;
 	height: 100%;
-	cursor: pointer;
+	${(props: {disabled?: boolean}) =>
+		!props.disabled &&
+		css`
+			cursor: pointer;
+		`}
 	display: inline-block;
 
 	& > * {
@@ -55,24 +64,51 @@ const EditButton = styled(TimerButton)`
 	grid-column: 3 / 4;
 `;
 
-render(
-	<Container>
-		<TimeDisplay>12:35</TimeDisplay>
-		<StartButton>
-			<img src={playIcon} />
-			<span>開始</span>
-		</StartButton>
-		<PauseButton>
-			<img src={pauseIcon} />
-			<span>停止</span>
-		</PauseButton>
-		<ResetButton>
-			<img src={stopIcon} />
-			<span>リセット</span>
-		</ResetButton>
-		<EditButton>
-			<img src={editIcon} />
-			<span>編集</span>
-		</EditButton>
-	</Container>,
-);
+const Timer: React.FunctionComponent = () => {
+	const [timer] = useReplicant(timerRep);
+
+	if (!timer) {
+		return null;
+	}
+
+	const disableStart = timer.state !== TimerState.Stopped;
+	const disablePause = timer.state !== TimerState.Running;
+
+	return (
+		<Container>
+			<TimeDisplay>{formatTime(timer.time)}</TimeDisplay>
+			<StartButton
+				onClick={() => {
+					nodecg.sendMessage('startTimer');
+				}}
+				disabled={disableStart}
+			>
+				<img src={playIcon} />
+				<span>開始</span>
+			</StartButton>
+			<PauseButton
+				onClick={() => {
+					nodecg.sendMessage('stopTimer');
+				}}
+				disabled={disablePause}
+			>
+				<img src={pauseIcon} />
+				<span>停止</span>
+			</PauseButton>
+			<ResetButton
+				onClick={() => {
+					nodecg.sendMessage('resetTimer');
+				}}
+			>
+				<img src={stopIcon} />
+				<span>リセット</span>
+			</ResetButton>
+			<EditButton disabled>
+				<img src={editIcon} />
+				<span>編集</span>
+			</EditButton>
+		</Container>
+	);
+};
+
+render(<Timer />);

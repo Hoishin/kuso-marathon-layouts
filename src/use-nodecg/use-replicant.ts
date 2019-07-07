@@ -8,15 +8,7 @@ export const useReplicant = <TSchema, TRepName extends string>(
 	const [value, updateValue] = useState<TSchema | undefined>(undefined);
 
 	const changeHandler = (newValue: TSchema): void => {
-		updateValue((oldValue) => {
-			if (newValue !== oldValue) {
-				return newValue;
-			}
-			if (_.isEqual(newValue, oldValue)) {
-				return oldValue;
-			}
-			return _.clone(newValue);
-		});
+		updateValue(_.clone(newValue));
 	};
 
 	useEffect(() => {

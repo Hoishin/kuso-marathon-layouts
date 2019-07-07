@@ -15,7 +15,8 @@
 		"watch:graphics": "yarn build:graphics -w",
 		"format": "prettier --write \"**/*.{ts,tsx,json,yml,css,html}\"",
 		"postinstall": "include-nodecg postinstall",
-		"start": "include-nodecg start"
+		"start": "include-nodecg start",
+		"schema-types": "nodecg schema-types -o src/extension/types"
 	},
 	"husky": {
 		"pre-commit": "lint-staged"
@@ -42,6 +43,9 @@
 	},
 	"prettier": "@hoishin/prettierrc",
 	"dependencies": {
+		"moment": "^2.24.0",
+		"@hapi/joi": "^15.1.0",
+		"googleapis": "^40.0.1",
 		"include-nodecg": "^0.0.1-5",
 		"lodash": "^4.17.11",
 		"nodecg": "^1.4.0",
@@ -53,6 +57,7 @@
 		"@hoishin/eslint-config-ts": "^0.0.5",
 		"@hoishin/prettierrc": "^2.1.1",
 		"@hoishin/tsconfig": "^1.0.0",
+		"@types/hapi__joi": "^15.0.2",
 		"@types/hard-source-webpack-plugin": "^1.0.1",
 		"@types/html-webpack-plugin": "^3.2.0",
 		"@types/lodash": "^4.14.132",
@@ -81,6 +86,7 @@
 		"lint-staged": "^8.1.5",
 		"mini-css-extract-plugin": "^0.7.0",
 		"modern-normalize": "^0.5.0",
+		"nodecg-cli": "^6.0.3",
 		"npm-run-all": "^4.1.5",
 		"prettier": "^1.17.0",
 		"react": "^16.8.6",

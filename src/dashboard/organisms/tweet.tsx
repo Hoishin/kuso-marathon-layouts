@@ -42,10 +42,19 @@ const TweetItem: React.FunctionComponent<{tweet: Tweet}> = (props) => {
 			<Icon src={props.tweet.user.icon} />
 			<InfoBlock label={label} content={props.tweet.content} />
 			<Controls>
-				<ControlButton>
+				<ControlButton
+					onClick={() => {
+						nodecg.sendMessage('showTweet', props.tweet);
+						nodecg.sendMessage('deleteTweet', {id: props.tweet.id});
+					}}
+				>
 					<img src={sendIcon} />
 				</ControlButton>
-				<ControlButton>
+				<ControlButton
+					onClick={() => {
+						nodecg.sendMessage('deleteTweet', {id: props.tweet.id});
+					}}
+				>
 					<img src={trashIcon} />
 				</ControlButton>
 			</Controls>

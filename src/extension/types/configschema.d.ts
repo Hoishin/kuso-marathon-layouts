@@ -13,4 +13,8 @@ export interface Configschema {
 		accessTokenSecret: string;
 		debug?: boolean;
 	};
+	google?: {
+		apiKey: string;
+		spreadsheetId: string;
+	};
 }

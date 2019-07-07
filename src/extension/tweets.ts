@@ -163,4 +163,13 @@ export const setupTweets = (nodecg: NodeCG) => {
 	}, 10 * 1000);
 
 	tweetTrackWordsRep.on('change', startStream);
+
+	nodecg.listenFor('deleteTweet', (data) => {
+		if (!tweetsRep.value) {
+			return;
+		}
+		tweetsRep.value = tweetsRep.value.filter(
+			(tweet) => tweet.id !== data.id,
+		);
+	});
 };

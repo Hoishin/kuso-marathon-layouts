@@ -29,6 +29,19 @@
 				"accessTokenSecret"
 			],
 			"additionalProperties": false
+		},
+		"google": {
+			"type": "object",
+			"properties": {
+				"apiKey": {
+					"type": "string"
+				},
+				"spreadsheetId": {
+					"type": "string"
+				}
+			},
+			"required": ["apiKey", "spreadsheetId"],
+			"additionalProperties": false
 		}
 	},
 	"additionalProperties": false

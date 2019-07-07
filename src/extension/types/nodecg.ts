@@ -6,6 +6,7 @@ export type Participant = {
 };
 
 export type Run = {
+	index: number;
 	game: string;
 	category: string;
 	runners: Participant[];
@@ -13,11 +14,8 @@ export type Run = {
 	/**
 	 * In milliseconds
 	 */
-	estimateDuration: number;
-	/**
-	 * Short description from horaro
-	 */
-	description: string;
+	estimate: number;
+	startTime: number;
 };
 
 export type Tweet = {
@@ -35,10 +33,28 @@ export type Info = {
 	enabled: boolean;
 };
 
+export enum TimerState {
+	Stopped = 'stopped',
+	Running = 'running',
+	Finished = 'finished',
+}
+export type Timer = {
+	/**
+	 * in second
+	 */
+	time: number;
+	/**
+	 * in millisecond
+	 */
+	lastTickTime: number;
+	state: TimerState;
+	results: ({time: number; state: TimerState} | null)[];
+};
+
 export type ReplicantMap = {
 	schedule: Run[];
-	currentRun?: Run;
-	nextRun?: Run;
+	currentRun: Run | null;
+	nextRun: Run | null;
 	tweets: Tweet[];
 	info: Info[];
 	tweetTrackWords: string[];
@@ -50,4 +66,23 @@ export type ReplicantMap = {
 			| 'disconnected';
 		error: boolean;
 	};
+	timer: Timer;
+};
+
+export type MessageMap = {
+	showTweet: {
+		data: Tweet;
+	};
+	deleteTweet: {
+		data: {id: string};
+	};
+	startTimer: {};
+	stopTimer: {};
+	resetTimer: {};
+	completeRunner: {data: {index: number}};
+	resumeRunner: {data: {index: number}};
+	editTime: {data: {index: number | 'master', time: number}};
+	updateSchedule: {};
+	previousRun: {},
+	nextRun: {},
 };

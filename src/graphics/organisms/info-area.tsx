@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import {textStyle, absoluteCenterContent, boxBackground} from '../styles';
 import {FunctionComponentWithClassName} from '../../types/react';
@@ -14,6 +14,11 @@ const Container = styled.div`
 `;
 
 const InfoArea: FunctionComponentWithClassName = (props) => {
+	useEffect(() => {
+		nodecg.listenFor('showTweet', (data) => {
+			console.dir(data);
+		});
+	}, []);
 	return (
 		<Container className={props.className}>
 			<FitText>{'w'.repeat(1000)}</FitText>
