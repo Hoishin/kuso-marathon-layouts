@@ -36,18 +36,18 @@ const TweetArea = styled.div`
 	grid-template-columns: auto auto 1fr;
 	align-content: center;
 	align-items: center;
-	justify-items: start;
 	gap: 4px;
+	will-change: transform;
 	& > img {
 		height: 48px;
 		width: 48px;
 	}
 	& > div {
-		display: flex;
-		justify-content: flex-start;
+		display: grid;
+		grid-template-columns: 1fr;
+		align-content: center;
 		align-items: center;
 		overflow: hidden;
-		width: 100%;
 		& > div {
 			white-space: nowrap;
 			will-change: transform;
@@ -88,7 +88,7 @@ const InfoArea: FunctionComponentWithClassName = (props) => {
 			});
 			tl.set(tweetEl, {opacity: 1}, '+=0.5');
 			tl.to(tweetEl, 0.5, {x: 0, ease: Power2.easeOut});
-			tl.add(() => {
+			tl.call(() => {
 				const maxWidth = container.clientWidth;
 				const currentWidth = text.clientWidth;
 				if (maxWidth >= currentWidth) {
