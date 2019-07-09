@@ -5,6 +5,7 @@
 	"license": "Apache-2.0",
 	"scripts": {
 		"clear": "del-cli dashboard extension graphics node_modules/.cache",
+		"prod-build": "cross-env NODE_ENV=production run-s clear build",
 		"build": "run-p build:*",
 		"build:dashboard": "webpack --config-name dashboard",
 		"build:extension": "webpack --config-name extension",
@@ -74,6 +75,7 @@
 		"babel-loader": "^8.0.6",
 		"babel-plugin-styled-components": "^1.10.4",
 		"bower": "^1.8.8",
+		"cross-env": "^5.2.0",
 		"css-loader": "^3.0.0",
 		"del-cli": "^2.0.0",
 		"eslint": "^5.16.0",
