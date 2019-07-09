@@ -139,7 +139,18 @@ const Schedule: React.FunctionComponent = () => {
 				>
 					←前
 				</Button>
-				<div />
+				<a
+					style={{alignSelf: 'center', justifySelf: 'center'}}
+					target='_blank'
+					href={
+						nodecg.bundleConfig.google &&
+						`https://docs.google.com/spreadsheets/d/${
+							nodecg.bundleConfig.google.spreadsheetId
+						}`
+					}
+				>
+					編集する
+				</a>
 				<Button
 					onClick={() => {
 						nodecg.sendMessage('nextRun');

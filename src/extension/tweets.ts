@@ -96,7 +96,9 @@ export const setupTweets = (nodecg: NodeCG) => {
 						name: rawTweet.user.name,
 						screenName: rawTweet.user.screen_name,
 					},
-					content: rawTweet.text,
+					content: rawTweet.text
+						.replace(/&lt;/g, '<')
+						.replace(/&gt;/g, '>'),
 				};
 				addTweet(newTweet);
 			});
