@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import {boxBackground, textStyle} from '../styles';
@@ -62,8 +62,8 @@ const Title: FunctionComponentWithClassName<{children: string}> = (props) => {
 			{props.children
 				.split(NEW_LINE_TOKEN)
 				.slice(0, 2)
-				.map((chunk) => (
-					<TitleText>{chunk}</TitleText>
+				.map((chunk, index) => (
+					<TitleText key={`${chunk}${index}`}>{chunk}</TitleText>
 				))}
 		</TitleContainer>
 	);
@@ -74,6 +74,29 @@ const scheduleRep = nodecg.Replicant('schedule');
 const BreakNextRun: FunctionComponentWithClassName = (props) => {
 	const [currentRunIndex] = useReplicant(currentRunIndexRep);
 	const [schedule] = useReplicant(scheduleRep);
+	const [startsIn, setStartsIn] = useState('0:00:00');
+	useEffect(() => {
+		if (
+			typeof currentRunIndex !== 'number' ||
+			!schedule ||
+			!schedule[currentRunIndex]
+		) {
+			return;
+		}
+		const interval = setInterval(() => {
+			const diff = moment(schedule[currentRunIndex].startTime).diff(
+				moment(),
+			);
+			if (diff > 0) {
+				setStartsIn(`開始まで ${formatTime(diff / 1000)}`);
+			} else {
+				setStartsIn('このあとすぐ');
+			}
+		}, 100);
+		return () => {
+			clearInterval(interval);
+		};
+	}, [currentRunIndex, schedule]);
 	if (
 		typeof currentRunIndex !== 'number' ||
 		!schedule ||
@@ -82,11 +105,10 @@ const BreakNextRun: FunctionComponentWithClassName = (props) => {
 		return null;
 	}
 	const currentRun = schedule[currentRunIndex];
-	const diff = moment(currentRun.startTime).diff(moment());
 	return (
 		<Container className={props.className}>
 			<Content>
-				<MiscText>{`開始まで ${formatTime(diff / 1000)}`}</MiscText>
+				<MiscText>{startsIn}</MiscText>
 				<Divider />
 				<Title>{currentRun.game}</Title>
 				<Divider />
