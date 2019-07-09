@@ -77,10 +77,10 @@ const page = (
 		<GlobalStyle />
 		<BasePage frameImg={frameImg} />
 		<NextRun />
-		<RunInfo1 />
-		<RunInfo2 />
-		<RunInfo3 />
-		<RunInfo4 />
+		<RunInfo1 indexFn={n => n - 2} />
+		<RunInfo2 indexFn={n => n - 1} />
+		<RunInfo3 indexFn={n => n + 1} />
+		<RunInfo4 indexFn={n => n + 2} />
 		<LogoArea />
 		<Loading src={loadingImage} />
 		<NextIcon src={nextIcon} />

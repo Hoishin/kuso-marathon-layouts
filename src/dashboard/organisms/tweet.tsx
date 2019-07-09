@@ -15,6 +15,8 @@ const Icon = styled.img`
 	align-self: center;
 	justify-self: center;
 	border-radius: 100%;
+	width: 48px;
+	height: 48px;
 `;
 
 const Controls = styled.div`
@@ -36,7 +38,7 @@ const ControlButton = styled.button`
 `;
 
 const TweetItem: React.FunctionComponent<{tweet: Tweet}> = (props) => {
-	const label = `${props.tweet.user.screenName} (@${props.tweet.user.name})`;
+	const label = `${props.tweet.user.name} (@${props.tweet.user.screenName})`;
 	return (
 		<Container>
 			<Icon src={props.tweet.user.icon} />

@@ -26,7 +26,7 @@ export const setupTweets = (nodecg: NodeCG) => {
 		}
 	};
 	const tweetTrackWordsRep = nodecg.Replicant('tweetTrackWords', {
-		defaultValue: ['#nhk'],
+		defaultValue: [],
 	});
 	const tweetStreamStatus = nodecg.Replicant('tweetStreamStatus', {
 		defaultValue: {connection: 'disconnected', error: false},
@@ -59,9 +59,7 @@ export const setupTweets = (nodecg: NodeCG) => {
 				};
 			}
 
-			stream = twitterConfig.debug
-				? twit.stream('statuses/sample')
-				: twit.stream('statuses/filter', {track: trackWords});
+			stream =  twit.stream('statuses/filter', {track: trackWords});
 
 			stream.on('tweet', (rawTweet: typeof tweetSample) => {
 				if (tweetStreamStatus.value) {
@@ -165,7 +163,7 @@ export const setupTweets = (nodecg: NodeCG) => {
 	tweetTrackWordsRep.on('change', startStream);
 
 	nodecg.listenFor('deleteTweet', (data) => {
-		if (!tweetsRep.value) {
+		if (!tweetsRep.value ||  twitterConfig.debug) {
 			return;
 		}
 		tweetsRep.value = tweetsRep.value.filter(

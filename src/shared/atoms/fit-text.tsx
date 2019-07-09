@@ -1,6 +1,5 @@
 import React, {useRef, useEffect} from 'react';
 import styled from 'styled-components';
-import {FunctionComponentWithClassName} from '../../types/react';
 
 const Container = styled.div`
 	display: flex;
@@ -13,10 +12,14 @@ const Text = styled.div`
 	white-space: nowrap;
 `;
 
-const FitText: FunctionComponentWithClassName<{children: string}> = ({
-	children,
-	className,
-}) => {
+const FitText = React.forwardRef<
+	HTMLDivElement,
+	{
+		children: string;
+		className?: string;
+		style?: React.CSSProperties;
+	}
+>(({children, className, style}, ref: React.Ref<HTMLDivElement>) => {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const textRef = useRef<HTMLDivElement>(null);
 
@@ -56,10 +59,23 @@ const FitText: FunctionComponentWithClassName<{children: string}> = ({
 	});
 
 	return (
-		<Container className={className} ref={containerRef}>
+		<Container
+			className={className}
+			ref={(el) => {
+				if (typeof ref === 'function') {
+					ref(el);
+				} else if (ref) {
+					// @ts-ignore
+					ref.current = el;
+				}
+				// @ts-ignore
+				containerRef.current = el;
+			}}
+			style={style}
+		>
 			<Text ref={textRef}>{children}</Text>
 		</Container>
 	);
-};
+});
 
 export default FitText;

@@ -7,7 +7,8 @@ import {useReplicant} from '../../use-nodecg/use-replicant';
 import {formatTime} from '../../shared/format-time';
 
 const timerRep = nodecg.Replicant('timer');
-const currentRunRep = nodecg.Replicant('currentRun');
+const currentRunRep = nodecg.Replicant('currentRunIndex');
+const scheduleRep = nodecg.Replicant('schedule');
 
 const Container = styled.div`
 	display: grid;
@@ -34,12 +35,16 @@ const Estimate = styled(FitText)`
 const Timer: FunctionComponentWithClassName = (props) => {
 	const [timer] = useReplicant(timerRep);
 	const [currentRun] = useReplicant(currentRunRep);
+	const [schedule] = useReplicant(scheduleRep);
 	return (
 		<Container className={props.className}>
 			<CurrentTime>{timer ? formatTime(timer.time) : '???'}</CurrentTime>
 			<Estimate>
-				{currentRun
-					? formatTime(currentRun.estimateDuration / 1000)
+				{currentRun === undefined &&
+				currentRun === null &&
+				schedule &&
+				schedule[currentRun]
+					? formatTime(schedule[currentRun].estimate)
 					: '???'}
 			</Estimate>
 		</Container>

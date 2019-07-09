@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {boxBackground, textStyle} from '../styles';
 import FitText from '../../shared/atoms/fit-text';
 import {FunctionComponentWithClassName} from '../../types/react';
+import {useReplicant} from '../../use-nodecg/use-replicant';
 
 const Container = styled.div`
 	position: absolute;
@@ -20,14 +21,14 @@ const Title = styled(FitText)`
 	grid-row: 1 / 2;
 	font-size: 21px;
 	text-shadow: 2px 2px 1px black;
-	margin: 5px;
+	margin: 0 5px;
 `;
 
 const Misc = styled(FitText)`
 	${textStyle}
 	font-size: 16.667px;
 	text-shadow: 3px 3px 1px black;
-	margin: 5px;
+	margin: 0 5px;
 `;
 
 const Category = styled(Misc)`
@@ -54,14 +55,25 @@ const VerticalDivider = styled.div`
 	grid-row: 3 / 4;
 `;
 
-const RunInfoBreak: FunctionComponentWithClassName = (props) => {
+const currentRunIndexRep = nodecg.Replicant('currentRunIndex');
+const scheduleRep = nodecg.Replicant('schedule');
+const RunInfoBreak: FunctionComponentWithClassName<{
+	indexFn: (n: number) => number;
+}> = (props) => {
+	const [currentRunIndex] = useReplicant(currentRunIndexRep);
+	const [schedule] = useReplicant(scheduleRep);
+	if (typeof currentRunIndex !== 'number' || !schedule) {
+		return null;
+	}
+	const targetRun = schedule[props.indexFn(currentRunIndex)];
 	return (
 		<Container className={props.className}>
-			<Title>ほげほげほげほげほげほげ</Title>
-			<Category>
-				Any%Any%Any%Any%Any%
-			</Category>
-			<Runner>hoishinhoishinhoishin</Runner>
+			<Title>{targetRun && targetRun.game}</Title>
+			<Category>{targetRun && targetRun.category}</Category>
+			<Runner>
+				{targetRun &&
+					targetRun.runners.map((runner) => runner.name).join(', ')}
+			</Runner>
 			<HorizontalDivider />
 			<VerticalDivider />
 		</Container>

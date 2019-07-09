@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -u
+
+rsync -avh --delete \
+--exclude=.* \
+--exclude=db \
+--exclude=cfg \
+--exclude=node_modules \
+--exclude=src \
+. $1

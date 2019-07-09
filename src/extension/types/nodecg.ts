@@ -85,5 +85,4 @@ export type MessageMap = {
 	updateSchedule: {};
 	previousRun: {},
 	nextRun: {},
-	showInfo: {data: {text: string}}
 };

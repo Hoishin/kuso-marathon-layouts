@@ -18,13 +18,13 @@ export const absoluteCenterContent = css`
 `;
 
 export const textStyle = css`
-	font-family: ${YASASHISA_GOTHIC}, sans-serif;
+	font-family: '${YASASHISA_GOTHIC}', sans-serif;
 	color: white;
 `;
 
 export const GlobalStyle = createGlobalStyle`
 	@font-face {
-		font-family: ${YASASHISA_GOTHIC};
+		font-family: '${YASASHISA_GOTHIC}';
 		src: url(${yasashisaGothic});
 	}
 `;
