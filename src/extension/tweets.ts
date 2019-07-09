@@ -59,7 +59,12 @@ export const setupTweets = (nodecg: NodeCG) => {
 				};
 			}
 
-			stream =  twit.stream('statuses/filter', {track: trackWords});
+			if (trackWords.length === 0) {
+				streamLogger.warn('Tracking words are empty. Pausing stream.');
+				return;
+			}
+
+			stream = twit.stream('statuses/filter', {track: trackWords});
 
 			stream.on('tweet', (rawTweet: typeof tweetSample) => {
 				if (tweetStreamStatus.value) {
@@ -163,7 +168,7 @@ export const setupTweets = (nodecg: NodeCG) => {
 	tweetTrackWordsRep.on('change', startStream);
 
 	nodecg.listenFor('deleteTweet', (data) => {
-		if (!tweetsRep.value ||  twitterConfig.debug) {
+		if (!tweetsRep.value || twitterConfig.debug) {
 			return;
 		}
 		tweetsRep.value = tweetsRep.value.filter(
