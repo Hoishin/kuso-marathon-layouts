@@ -5,7 +5,8 @@ import * as moment from 'moment';
 import {NodeCG} from './types/server';
 import {Participant, Run} from './types/nodecg';
 
-const UPDATE_INTERVAL = 30 * 1000;
+// rate limit is 100req / 100sec
+const UPDATE_INTERVAL = 3 * 1000;
 
 export const setupSchedule = (nodecg: NodeCG) => {
 	const googleConfig = nodecg.bundleConfig.google;

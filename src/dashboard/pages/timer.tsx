@@ -15,9 +15,15 @@ const timerRep = nodecg.Replicant('timer');
 const Container = styled.div`
 	padding: 8px;
 	display: grid;
+	grid-auto-flow: row;
+`;
+
+const Master = styled.div`
+	display: grid;
 	grid-template-columns: 50% 1fr 1fr;
 	grid-template-rows: 48px 48px;
 	gap: 8px;
+	padding-bottom: 8px;
 `;
 
 const TimeDisplay = styled.div`
@@ -64,49 +70,122 @@ const EditButton = styled(TimerButton)`
 	grid-column: 3 / 4;
 `;
 
+const Runner = styled.div`
+	display: grid;
+	grid-template-columns: 1fr auto auto;
+	gap: 4px;
+	padding: 8px;
+	height: 3em;
+	${(props: {running: boolean}) =>
+		props.running
+			? css`
+					background-color: #90f798;
+			  `
+			: css`
+					background-color: #f79090;
+			  `}
+`;
+
+const RunnerName = styled.div`
+	font-size: 24px;
+	align-self: center;
+	justify-self: center;
+`;
+
+const RunnerButton = styled.button`
+	${(props: {disabled?: boolean}) =>
+		!props.disabled &&
+		css`
+			cursor: pointer;
+		`}
+`;
+
+const scheduleRep = nodecg.Replicant('schedule');
+const currRunIndexRep = nodecg.Replicant('currentRunIndex');
 const Timer: React.FunctionComponent = () => {
 	const [timer] = useReplicant(timerRep);
+	const [schedule] = useReplicant(scheduleRep);
+	const [currentRunIndex] = useReplicant(currRunIndexRep);
 
-	if (!timer) {
+	if (!timer || !schedule || typeof currentRunIndex !== 'number') {
 		return null;
 	}
+
+	const currentRun = schedule[currentRunIndex];
 
 	const disableStart = timer.state !== TimerState.Stopped;
 	const disablePause = timer.state !== TimerState.Running;
 
 	return (
 		<Container>
-			<TimeDisplay>{formatTime(timer.time)}</TimeDisplay>
-			<StartButton
-				onClick={() => {
-					nodecg.sendMessage('startTimer');
-				}}
-				disabled={disableStart}
-			>
-				<img src={playIcon} />
-				<span>開始</span>
-			</StartButton>
-			<PauseButton
-				onClick={() => {
-					nodecg.sendMessage('stopTimer');
-				}}
-				disabled={disablePause}
-			>
-				<img src={pauseIcon} />
-				<span>停止</span>
-			</PauseButton>
-			<ResetButton
-				onClick={() => {
-					nodecg.sendMessage('resetTimer');
-				}}
-			>
-				<img src={stopIcon} />
-				<span>リセット</span>
-			</ResetButton>
-			<EditButton disabled>
-				<img src={editIcon} />
-				<span>編集</span>
-			</EditButton>
+			<Master>
+				<TimeDisplay>{formatTime(timer.time)}</TimeDisplay>
+				<StartButton
+					onClick={() => {
+						nodecg.sendMessage('startTimer');
+					}}
+					disabled={disableStart}
+				>
+					<img src={playIcon} />
+					<span>開始</span>
+				</StartButton>
+				<PauseButton
+					onClick={() => {
+						nodecg.sendMessage('stopTimer');
+					}}
+					disabled={disablePause}
+				>
+					<img src={pauseIcon} />
+					<span>停止</span>
+				</PauseButton>
+				<ResetButton
+					onClick={() => {
+						nodecg.sendMessage('resetTimer');
+					}}
+				>
+					<img src={stopIcon} />
+					<span>リセット</span>
+				</ResetButton>
+				<EditButton disabled>
+					<img src={editIcon} />
+					<span>編集</span>
+				</EditButton>
+			</Master>
+			{currentRun &&
+				currentRun.runners.map((runner, index) => {
+					const result = timer.results[index];
+					const state = result ? result.state : timer.state;
+					const time = formatTime(result ? result.time : timer.time);
+					const action =
+						state === TimerState.Running ||
+						timer.state === TimerState.Stopped
+							? 'completeRunner'
+							: 'resumeRunner';
+					const onClick = () => {
+						nodecg.sendMessage(action, {index});
+					};
+					return (
+						<Runner
+							key={`${runner.name}${index}`}
+							style={{
+								backgroundColor:
+									state === TimerState.Running
+										? '#f5f790'
+										: state === TimerState.Finished
+										? '#90f798'
+										: '#f79090',
+							}}
+							running={state === TimerState.Running}
+						>
+							<RunnerName>
+								{`${runner.name} (${time})`}
+							</RunnerName>
+							<RunnerButton onClick={onClick}>
+								{action === 'completeRunner' ? '完走' : '再開'}
+							</RunnerButton>
+						</Runner>
+					);
+				})}
 		</Container>
 	);
 };

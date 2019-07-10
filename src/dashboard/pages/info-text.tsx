@@ -70,6 +70,7 @@ const InfoText: React.FunctionComponent = () => {
 					{info.map((infoItem, index) => {
 						return (
 							<div
+								key={`${infoItem.content}${index}`}
 								style={{
 									backgroundColor: infoItem.enabled
 										? '#90f798'
