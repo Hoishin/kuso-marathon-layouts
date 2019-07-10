@@ -24,7 +24,7 @@ export const setupSchedule = (nodecg: NodeCG) => {
 		try {
 			const res = await sheets.spreadsheets.values.batchGet({
 				spreadsheetId: googleConfig.spreadsheetId,
-				ranges: ['schedule!A:N'],
+				ranges: ['schedule!A:R'],
 			});
 			const sheetValues = res.data.valueRanges;
 			if (!sheetValues) {
@@ -46,31 +46,43 @@ export const setupSchedule = (nodecg: NodeCG) => {
 			);
 
 			const newSchedule = games.map<Run>((game, index) => {
-				const runner1: Participant = {
-					name: game.runner1 || '???',
-					nico: game.runner1Nico || undefined,
-					twitch: game.runner1Twitch || undefined,
-					twitter: game.runner1Twitter || undefined,
-				};
-				const runner2: Participant = {
-					name: game.runner2 || '???',
-					nico: game.runner2Nico || undefined,
-					twitch: game.runner2Twitch || undefined,
-					twitter: game.runner2Twitter || undefined,
-				};
+				const runners: Participant[] = [
+					{
+						name: game.runner1 || '???',
+						nico: game.runner1Nico || undefined,
+						twitch: game.runner1Twitch || undefined,
+						twitter: game.runner1Twitter || undefined,
+					},
+				];
+				if (game.runner2) {
+					runners.push({
+						name: game.runner2 || '???',
+						nico: game.runner2Nico || undefined,
+						twitch: game.runner2Twitch || undefined,
+						twitter: game.runner2Twitter || undefined,
+					});
+				}
 				return {
 					index,
 					category: game.category || '???',
-					commentators: [{name: game.commentator || ''}],
+					commentators: [
+						{
+							name: game.commentator || '',
+							twitch: game.commentatorTwitch,
+							twitter: game.commentatorTwitter,
+							nico: game.commentatorNico,
+						},
+					],
 					estimate: game.estimate
 						? moment.duration(game.estimate).asSeconds()
 						: 0,
 					game: game.title || '???',
-					runners: [runner1, runner2],
+					runners,
 					startTime: game.startTime
 						? new Date(`${game.startTime}+0900`).getTime()
 						: 0,
 					platform: game.platform,
+					imageUrl: game.image,
 				};
 			});
 

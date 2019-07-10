@@ -5,6 +5,8 @@ import FitText from '../../shared/atoms/fit-text';
 import {textStyle, absoluteCenterContent} from '../styles';
 import SocialIcon from '../atoms/social-icon';
 import ParticipantIcon, {ParticipantType} from '../atoms/participant-icon';
+import {Participant} from '../../extension/types/nodecg';
+import {useSocialLoop} from './hooks/use-social-loop';
 
 const Container = styled.div`
 	display: grid;
@@ -29,6 +31,7 @@ const Social = styled.div`
 	${absoluteCenterContent};
 	grid-auto-flow: column;
 	align-items: center;
+	opacity: 0;
 `;
 
 const StyledSocialIcon = styled(SocialIcon)`
@@ -43,14 +46,19 @@ const SocialText = styled(FitText)`
 
 const VerticalParticipant: FunctionComponentWithClassName<{
 	type: ParticipantType;
+	participant?: Participant;
 }> = (props) => {
+	const social = useSocialLoop(props.participant);
+	if (!props.participant) {
+		return null;
+	}
 	return (
 		<Container className={props.className}>
 			<Icon type={props.type} />
-			<Name>{'w'.repeat(Math.random() * 20)}</Name>
-			<Social>
-				<StyledSocialIcon media='twitter' />
-				<SocialText>{'w'.repeat(Math.random() * 20)}</SocialText>
+			<Name>{props.participant.name}</Name>
+			<Social ref={social.ref}>
+				{social.type && <StyledSocialIcon media={social.type} />}
+				<SocialText>{social.text}</SocialText>
 			</Social>
 		</Container>
 	);

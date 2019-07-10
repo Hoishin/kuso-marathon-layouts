@@ -13,13 +13,22 @@ const Container = styled.div`
 	width: 710px;
 	height: 230px;
 	display: grid;
-	grid-template-columns: 375px 1fr;
+	grid-template-columns: 375px 330px;
+	justify-content: start;
 `;
 
-const GameImageFrame = styled.img`
+const GameImageFrame = styled.div`
 	grid-column: 2 / 3;
 	grid-row: 1 / 2;
 	align-self: center;
+	background: url(${gameImageFrame}) no-repeat;
+	padding: 5px;
+	height: 190px;
+
+	& > img {
+		width: 100%;
+		height: 100%;
+	}
 `;
 
 const Divider = styled.div`
@@ -120,7 +129,9 @@ const BreakNextRun: FunctionComponentWithClassName = (props) => {
 				<Divider />
 				<MiscText>{formatTime(currentRun.estimate)}</MiscText>
 			</Content>
-			<GameImageFrame src={gameImageFrame} />
+			<GameImageFrame>
+				{currentRun.imageUrl && <img src={currentRun.imageUrl} />}
+			</GameImageFrame>
 		</Container>
 	);
 };

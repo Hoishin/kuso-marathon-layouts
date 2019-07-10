@@ -5,10 +5,9 @@ import {textStyle, absoluteCenterContent, boxBackground} from '../styles';
 import FitText from '../../shared/atoms/fit-text';
 import {useReplicant} from '../../use-nodecg/use-replicant';
 import {formatTime} from '../../shared/format-time';
+import {useCurrentRun} from '../../shared/use-current-run';
 
 const timerRep = nodecg.Replicant('timer');
-const currentRunRep = nodecg.Replicant('currentRunIndex');
-const scheduleRep = nodecg.Replicant('schedule');
 
 const Container = styled.div`
 	display: grid;
@@ -34,18 +33,12 @@ const Estimate = styled(FitText)`
 
 const Timer: FunctionComponentWithClassName = (props) => {
 	const [timer] = useReplicant(timerRep);
-	const [currentRun] = useReplicant(currentRunRep);
-	const [schedule] = useReplicant(scheduleRep);
+	const currentRun = useCurrentRun();
 	return (
 		<Container className={props.className}>
 			<CurrentTime>{timer ? formatTime(timer.time) : '???'}</CurrentTime>
 			<Estimate>
-				{currentRun === undefined &&
-				currentRun === null &&
-				schedule &&
-				schedule[currentRun]
-					? formatTime(schedule[currentRun].estimate)
-					: '???'}
+				{currentRun ? formatTime(currentRun.estimate) : '???'}
 			</Estimate>
 		</Container>
 	);

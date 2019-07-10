@@ -17,6 +17,7 @@ export type Run = {
 	estimate: number;
 	startTime: number;
 	platform: string;
+	imageUrl: string | null;
 };
 
 export type Tweet = {

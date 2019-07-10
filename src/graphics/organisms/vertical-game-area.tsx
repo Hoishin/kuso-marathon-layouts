@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {FunctionComponentWithClassName} from '../../types/react';
 import {absoluteCenterContent, textStyle, boxBackground} from '../styles';
 import FitText from '../../shared/atoms/fit-text';
+import { useCurrentRun } from '../../shared/use-current-run';
 
 const Container = styled.div`
 	${boxBackground};
@@ -32,10 +33,11 @@ const RunCategory = styled(FitText)`
 `;
 
 const VerticalGameArea: FunctionComponentWithClassName = (props) => {
+	const currentRun = useCurrentRun()
 	return (
 		<Container className={props.className}>
-			<GameTitle>ドン・キホーテwwwwwwwwwwwwwwwww</GameTitle>
-			<RunCategory>wwwwwww100%wwwwwwwwwwwwwwwwwwwwww</RunCategory>
+			{currentRun && <GameTitle>{currentRun.game}</GameTitle>}
+			{currentRun && <RunCategory>{currentRun.category}</RunCategory>}
 		</Container>
 	);
 };

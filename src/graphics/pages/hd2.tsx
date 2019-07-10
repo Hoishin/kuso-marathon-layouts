@@ -11,6 +11,7 @@ import InfoArea from '../organisms/info-area';
 import {GlobalStyle} from '../styles';
 import RunnerArea from '../organisms/runner-area';
 import CommentatorArea from '../organisms/commentator-area';
+import {useCurrentRun} from '../../shared/use-current-run';
 
 const Logo = styled(LogoArea)`
 	position: absolute;
@@ -69,19 +70,26 @@ const Info = styled(InfoArea)`
 	height: 30px;
 `;
 
-const page = (
-	<>
-		<GlobalStyle />
-		<BasePage frameImg={frameImg}>
-			<Logo />
-			<Game />
-			<LeftRunner />
-			<RightRunner />
-			<Commentator />
-			<Timer />
-			<Info />
-		</BasePage>
-	</>
-);
+const Page: React.FunctionComponent = () => {
+	const currentRun = useCurrentRun();
+	return (
+		<>
+			<GlobalStyle />
+			<BasePage frameImg={frameImg}>
+				<Logo />
+				<Game />
+				{currentRun && (
+					<>
+						<LeftRunner participant={currentRun.runners[0]} />
+						<RightRunner participant={currentRun.runners[1]} />
+						<Commentator participant={currentRun.commentators[0]} />
+					</>
+				)}
+				<Timer />
+				<Info />
+			</BasePage>
+		</>
+	);
+};
 
-ReactDOM.render(page, document.querySelector('#root'));
+ReactDOM.render(<Page />, document.querySelector('#root'));

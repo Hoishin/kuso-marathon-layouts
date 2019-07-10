@@ -70,24 +70,43 @@ const NextRun = styled(BreakNextRun)`
 	position: absolute;
 	left: 90px;
 	top: 227px;
-`
+`;
 
-const page = (
-	<>
-		<GlobalStyle />
-		<BasePage frameImg={frameImg} />
-		<NextRun />
-		<RunInfo1 indexFn={n => n - 2} />
-		<RunInfo2 indexFn={n => n - 1} />
-		<RunInfo3 indexFn={n => n + 1} />
-		<RunInfo4 indexFn={n => n + 2} />
-		<LogoArea />
-		<Loading src={loadingImage} />
-		<NextIcon src={nextIcon} />
-		<PrevIcon src={prevIcon} />
-		<NextText src={nextText} />
-		<PrevText src={prevText} />
-	</>
-);
+const Page = () => {
+	return (
+		<>
+			<GlobalStyle />
+			<BasePage frameImg={frameImg} />
+			<NextRun />
+			<RunInfo1 indexFn={(n) => n - 2} />
+			<RunInfo2 indexFn={(n) => n - 1} />
+			<RunInfo3 indexFn={(n) => n + 1} />
+			<RunInfo4 indexFn={(n) => n + 2} />
+			<LogoArea />
+			<Loading src={loadingImage} />
+			<NextIcon src={nextIcon} />
+			<PrevIcon src={prevIcon} />
+			<NextText src={nextText} />
+			<PrevText src={prevText} />
+		</>
+	);
+};
 
-ReactDOM.render(page, document.querySelector('#root'));
+ReactDOM.render(<Page />, document.querySelector('#root'));
+
+const prefetchImages = () => {
+	const imageUrls = new Set<string>();
+	nodecg.Replicant('schedule').on('change', (newVal) => {
+		for (const run of newVal) {
+			if (!run.imageUrl || imageUrls.has(run.imageUrl)) {
+				continue;
+			}
+			const linkEl = document.createElement('link');
+			linkEl.rel = 'prefetch';
+			linkEl.href = run.imageUrl;
+			document.head.append(linkEl);
+			imageUrls.add(run.imageUrl);
+		}
+	});
+};
+prefetchImages();

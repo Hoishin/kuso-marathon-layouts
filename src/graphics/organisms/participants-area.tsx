@@ -4,6 +4,7 @@ import {FunctionComponentWithClassName} from '../../types/react';
 import {boxBackground} from '../styles';
 import HorizontalParticipant from '../molecules/horizontal-participant';
 import VerticalParticipant from '../molecules/vertical-participant';
+import {useCurrentRun} from '../../shared/use-current-run';
 
 const Container = styled.div`
 	display: grid;
@@ -16,17 +17,29 @@ const Divider = styled.div`
 	background-color: white;
 `;
 
-const ParticipantsArea: FunctionComponentWithClassName<{vertical?: boolean}> = (
-	props,
-) => {
+const ParticipantsArea: FunctionComponentWithClassName<{
+	vertical?: boolean;
+	index?: number;
+}> = (props) => {
 	const Participant = props.vertical
 		? VerticalParticipant
 		: HorizontalParticipant;
+	const currentRun = useCurrentRun();
 	return (
 		<Container className={props.className}>
-			<Participant type='runner' />
-			<Divider />
-			<Participant type='commentator' />
+			{currentRun && (
+				<>
+					<Participant
+						type='runner'
+						participant={currentRun.runners[props.index || 0]}
+					/>
+					<Divider />
+					<Participant
+						type='commentator'
+						participant={currentRun.commentators[0]}
+					/>
+				</>
+			)}
 		</Container>
 	);
 };

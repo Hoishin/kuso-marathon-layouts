@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import {FunctionComponentWithClassName} from '../../types/react';
 import twitter from '../assets/social-icons/twitter.png';
 import twitch from '../assets/social-icons/twitch.png';
+import nico from '../assets/social-icons/nico.png';
 
-export type Media = 'twitter' | 'twitch';
+export type Media = 'twitter' | 'twitch' | 'nico';
 
 const getIconSrc = (media: Media) => {
 	switch (media) {
@@ -12,6 +13,8 @@ const getIconSrc = (media: Media) => {
 			return twitter;
 		case 'twitch':
 			return twitch;
+		case 'nico':
+			return nico
 	}
 };
 
