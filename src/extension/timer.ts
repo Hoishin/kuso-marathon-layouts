@@ -17,7 +17,9 @@ export const setupTimer = (nodecg: NodeCG) => {
 	const timerRep: typeof _timerRep & {
 		value: NonNullable<typeof _timerRep['value']>;
 	} = _timerRep as any;
-	const currentRunRep = nodecg.Replicant('currentRunIndex', {defaultValue: 0});
+	const currentRunRep = nodecg.Replicant('currentRunIndex', {
+		defaultValue: 0,
+	});
 	const scheduleRunRep = nodecg.Replicant('schedule', {defaultValue: []});
 
 	let tickInterval: NodeJS.Timer;

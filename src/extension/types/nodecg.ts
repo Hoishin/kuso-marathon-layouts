@@ -82,8 +82,8 @@ export type MessageMap = {
 	resetTimer: {};
 	completeRunner: {data: {index: number}};
 	resumeRunner: {data: {index: number}};
-	editTime: {data: {index: number | 'master', time: number}};
+	editTime: {data: {index: number | 'master'; time: number}};
 	updateSchedule: {};
-	previousRun: {},
-	nextRun: {},
+	previousRun: {};
+	nextRun: {};
 };

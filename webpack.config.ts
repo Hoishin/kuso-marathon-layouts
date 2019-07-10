@@ -6,6 +6,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import nodeExternals from 'webpack-node-externals';
 import HardSourcePlugin from 'hard-source-webpack-plugin';
+import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -14,8 +15,18 @@ const baseConfig: webpack.Configuration = {
 	resolve: {
 		extensions: ['.js', '.ts', '.tsx', '.json'],
 	},
-	devtool: 'cheap-source-map',
-	plugins: isProd ? [] : [new HardSourcePlugin()],
+	devtool: isProd ? undefined : 'cheap-source-map',
+	plugins: [
+		new HardSourcePlugin(),
+		new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+	],
+};
+
+const tsLoader = {
+	loader: 'ts-loader',
+	options: {
+		transpileOnly: true,
+	},
 };
 
 const browserConfig = (name: string) => {
@@ -37,13 +48,7 @@ const browserConfig = (name: string) => {
 			rules: [
 				{
 					test: /\.tsx?$/,
-					loaders: [
-						'babel-loader',
-						{
-							loader: 'ts-loader',
-							options: {configFile: `tsconfig.${name}.json`},
-						},
-					],
+					loaders: ['babel-loader', tsLoader],
 				},
 				{
 					test: /\.(png|woff2?|svg)$/,
@@ -78,7 +83,27 @@ const browserConfig = (name: string) => {
 						template: `src/webpack-templates/${name}.html`,
 					}),
 			),
+			new BundleAnalyzerPlugin({
+				openAnalyzer: false,
+				analyzerMode: 'static',
+				reportFilename: path.resolve(
+					__dirname,
+					`bundle-analyzer/${name}.html`,
+				),
+			}),
 		],
+		optimization: {
+			splitChunks: {
+				chunks: 'all',
+				cacheGroups: {
+					common: {
+						minChunks: 2,
+					},
+					vendors: false,
+					default: false,
+				},
+			},
+		},
 	});
 };
 
@@ -95,12 +120,7 @@ const extensionConfig: webpack.Configuration = merge(baseConfig, {
 		rules: [
 			{
 				test: /\.ts$/,
-				loaders: [
-					{
-						loader: 'ts-loader',
-						options: {configFile: 'tsconfig.extension.json'},
-					},
-				],
+				loaders: [tsLoader],
 			},
 		],
 	},

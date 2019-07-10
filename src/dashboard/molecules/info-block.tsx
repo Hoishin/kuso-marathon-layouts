@@ -13,8 +13,7 @@ const Label = styled.div`
 	white-space: nowrap;
 	overflow: hidden;
 `;
-const Content = styled.div`
-`;
+const Content = styled.div``;
 
 const InfoBlock: React.FunctionComponent<{
 	label: string;

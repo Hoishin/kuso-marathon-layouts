@@ -3,7 +3,9 @@ import {NodeCG} from './types/server';
 
 export const setupRuns = (nodecg: NodeCG) => {
 	const scheduleRep = nodecg.Replicant('schedule', {defaultValue: []});
-	const currentRunRep = nodecg.Replicant('currentRunIndex', {defaultValue: 0});
+	const currentRunRep = nodecg.Replicant('currentRunIndex', {
+		defaultValue: 0,
+	});
 
 	const setCurrentRun = (index: number) => {
 		if (!scheduleRep.value) {

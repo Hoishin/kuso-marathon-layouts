@@ -54,13 +54,13 @@ const SocialText = styled(FitText)`
 
 const HorizontalParticipant: FunctionComponentWithClassName<{
 	type: ParticipantType;
-	participant: Participant;
+	participant?: Participant;
 }> = (props) => {
 	const social = useSocialLoop(props.participant);
 	return (
 		<Container className={props.className}>
 			<Icon type={props.type} />
-			<Name>{props.participant.name}</Name>
+			{props.participant && <Name>{props.participant.name}</Name>}
 			<Social ref={social.ref}>
 				{social.type && <StyledSocialIcon media={social.type} />}
 				<SocialText>{social.text}</SocialText>

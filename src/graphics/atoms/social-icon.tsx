@@ -14,7 +14,7 @@ const getIconSrc = (media: Media) => {
 		case 'twitch':
 			return twitch;
 		case 'nico':
-			return nico
+			return nico;
 	}
 };
 

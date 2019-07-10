@@ -12,6 +12,7 @@ import prevIcon from '../assets/prev-icon.png';
 import nextText from '../assets/next-text.png';
 import prevText from '../assets/prev-text.png';
 import BreakNextRun from '../organisms/break-next-run';
+import {Run} from '../../extension/types/nodecg';
 
 const RunInfo1 = styled(BreakRunInfo)`
 	left: 180px;
@@ -94,19 +95,16 @@ const Page = () => {
 
 ReactDOM.render(<Page />, document.querySelector('#root'));
 
-const prefetchImages = () => {
-	const imageUrls = new Set<string>();
-	nodecg.Replicant('schedule').on('change', (newVal) => {
-		for (const run of newVal) {
-			if (!run.imageUrl || imageUrls.has(run.imageUrl)) {
-				continue;
-			}
-			const linkEl = document.createElement('link');
-			linkEl.rel = 'prefetch';
-			linkEl.href = run.imageUrl;
-			document.head.append(linkEl);
-			imageUrls.add(run.imageUrl);
+const imageUrls = new Set<string>();
+nodecg.Replicant('schedule').on('change', (newVal: Run[]) => {
+	for (const run of newVal) {
+		if (!run.imageUrl || imageUrls.has(run.imageUrl)) {
+			continue;
 		}
-	});
-};
-prefetchImages();
+		const linkEl = document.createElement('link');
+		linkEl.rel = 'prefetch';
+		linkEl.href = run.imageUrl;
+		document.head.append(linkEl);
+		imageUrls.add(run.imageUrl);
+	}
+});

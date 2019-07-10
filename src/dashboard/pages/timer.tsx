@@ -100,6 +100,17 @@ const RunnerButton = styled.button`
 		`}
 `;
 
+const colorByState = (state: TimerState) => {
+	switch (state) {
+		case TimerState.Running:
+			return '#f5f790';
+		case TimerState.Finished:
+			return '#90f798';
+		case TimerState.Stopped:
+			return '#f79090';
+	}
+};
+
 const scheduleRep = nodecg.Replicant('schedule');
 const currRunIndexRep = nodecg.Replicant('currentRunIndex');
 const Timer: React.FunctionComponent = () => {
@@ -168,12 +179,7 @@ const Timer: React.FunctionComponent = () => {
 						<Runner
 							key={`${runner.name}${index}`}
 							style={{
-								backgroundColor:
-									state === TimerState.Running
-										? '#f5f790'
-										: state === TimerState.Finished
-										? '#90f798'
-										: '#f79090',
+								backgroundColor: colorByState(state),
 							}}
 							running={state === TimerState.Running}
 						>

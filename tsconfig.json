@@ -4,6 +4,9 @@
 		"jsx": "react",
 		"incremental": true,
 		"lib": ["dom", "esnext"],
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"types": ["node", "socket.io", "socket.io-client", "soundjs"],
+		"keyofStringsOnly": true,
+		"noEmit": true
 	}
 }
