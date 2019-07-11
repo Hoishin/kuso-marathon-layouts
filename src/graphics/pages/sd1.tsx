@@ -17,7 +17,6 @@ const Logo = styled(LogoArea)`
 	top: 46px;
 	width: 370px;
 	height: 138px;
-	padding: 24px 12px;
 `;
 
 const Game = styled(VerticalGameArea)`

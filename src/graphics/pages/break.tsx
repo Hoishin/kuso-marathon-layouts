@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import BasePage from '../base-page';
 import frameImg from '../assets/frames/break.png';
-import {GlobalStyle, boxBackground} from '../styles';
+import {GlobalStyle} from '../styles';
 import BreakRunInfo from '../organisms/break-run-info';
 import loadingImage from '../assets/loading.png';
 import nextIcon from '../assets/next-icon.png';
@@ -13,6 +13,8 @@ import nextText from '../assets/next-text.png';
 import prevText from '../assets/prev-text.png';
 import BreakNextRun from '../organisms/break-next-run';
 import {Run} from '../../extension/types/nodecg';
+import InfoArea from '../organisms/info-area';
+import LogoArea from '../organisms/logo-area';
 
 const RunInfo1 = styled(BreakRunInfo)`
 	left: 180px;
@@ -58,8 +60,7 @@ const PrevText = styled.img`
 	top: 134px;
 `;
 
-const LogoArea = styled.div`
-	${boxBackground};
+const Logo = styled(LogoArea)`
 	position: absolute;
 	left: 870px;
 	top: 251px;
@@ -73,22 +74,33 @@ const NextRun = styled(BreakNextRun)`
 	top: 227px;
 `;
 
+const Info = styled(InfoArea)`
+	position: absolute;
+	left: 5px;
+	bottom: 5px;
+	width: 1270px;
+	height: 30px;
+`;
+
 const Page = () => {
 	return (
 		<>
 			<GlobalStyle />
-			<BasePage frameImg={frameImg} />
-			<NextRun />
-			<RunInfo1 indexFn={(n) => n - 2} />
-			<RunInfo2 indexFn={(n) => n - 1} />
-			<RunInfo3 indexFn={(n) => n + 1} />
-			<RunInfo4 indexFn={(n) => n + 2} />
-			<LogoArea />
-			<Loading src={loadingImage} />
-			<NextIcon src={nextIcon} />
-			<PrevIcon src={prevIcon} />
-			<NextText src={nextText} />
-			<PrevText src={prevText} />
+			<BasePage frameImg={frameImg}>
+				<NextRun />
+				<RunInfo1 indexFn={(n) => n - 2} />
+				<RunInfo2 indexFn={(n) => n - 1} />
+				<RunInfo3 indexFn={(n) => n + 1} />
+				<RunInfo4 indexFn={(n) => n + 2} />
+				<Logo>
+				</Logo>
+				<Loading src={loadingImage} />
+				<NextIcon src={nextIcon} />
+				<PrevIcon src={prevIcon} />
+				<NextText src={nextText} />
+				<PrevText src={prevText} />
+				<Info />
+			</BasePage>
 		</>
 	);
 };

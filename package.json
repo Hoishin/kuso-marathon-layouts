@@ -5,7 +5,7 @@
 	"license": "Apache-2.0",
 	"scripts": {
 		"clear": "del-cli dashboard extension graphics",
-		"prod-build": "cross-env NODE_ENV=production run-s clear test build",
+		"prod-build": "cross-env NODE_ENV=production run-p test build",
 		"test": "tsc",
 		"build": "webpack",
 		"watch": "webpack -w",
@@ -169,6 +169,17 @@
 				"file": "break.html",
 				"height": 1280,
 				"width": 720
+			}
+		],
+		"assetCategories": [
+			{
+				"name": "sponsorLogo",
+				"title": "スポンサーロゴ",
+				"allowedTypes": [
+					"jpg",
+					"jpeg",
+					"png"
+				]
 			}
 		]
 	}
