@@ -49,8 +49,8 @@
 		"twit": "2.2.11"
 	},
 	"devDependencies": {
-		"@babel/core": "7.4.5",
-		"@babel/preset-env": "7.4.5",
+		"@babel/core": "7.5.4",
+		"@babel/preset-env": "7.5.4",
 		"@hoishin/eslint-config-ts": "0.0.5",
 		"@hoishin/prettierrc": "2.1.1",
 		"@hoishin/tsconfig": "1.0.0",
