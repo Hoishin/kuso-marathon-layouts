@@ -98,7 +98,7 @@
 		"ts-loader": "6.0.4",
 		"ts-node": "8.1.0",
 		"ts-nodecg": "0.1.0",
-		"typescript": "3.4.5",
+		"typescript": "3.5.3",
 		"webpack": "4.35.0",
 		"webpack-bundle-analyzer": "3.3.2",
 		"webpack-cli": "3.3.5",
