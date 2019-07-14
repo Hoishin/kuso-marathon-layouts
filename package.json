@@ -96,7 +96,7 @@
 		"style-loader": "0.23.1",
 		"styled-components": "4.3.2",
 		"ts-loader": "6.0.4",
-		"ts-node": "8.1.0",
+		"ts-node": "8.3.0",
 		"ts-nodecg": "0.1.1",
 		"typescript": "3.5.3",
 		"webpack": "4.35.3",
