@@ -8403,10 +8403,10 @@ ts-node@8.1.0:
     source-map-support "^0.5.6"
     yn "^3.0.0"
 
-ts-nodecg@0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/ts-nodecg/-/ts-nodecg-0.1.0.tgz#7e36baeeb7d6777bd5f01d346373502222702138"
-  integrity sha512-TE2Lfw4waG0Y5YL7VHW/m4nKPwY2xjZQMqwGyjImjiuOjmqhzUw8dfjRW+jhthHjJbUqeyv+oHIDLgTOEp2jgw==
+ts-nodecg@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/ts-nodecg/-/ts-nodecg-0.1.1.tgz#5a1157909f3ecd13f4d59b5813ae3030d3853dfa"
+  integrity sha512-dCQek0fXQsbUgL3iTp9JL6tBRS3Z5muNQ1z4zaZoOwhuE0uyCIKuEv3DdlGUx6TvifeKHlQtXnLZYWmyKssjXw==
   dependencies:
     "@types/express" "^4.17.0"
     "@types/node" "^10.14.8"
