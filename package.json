@@ -53,7 +53,7 @@
 		"@babel/preset-env": "7.5.4",
 		"@hoishin/eslint-config-ts": "0.0.5",
 		"@hoishin/prettierrc": "2.1.1",
-		"@hoishin/tsconfig": "1.0.0",
+		"@hoishin/tsconfig": "2.0.0",
 		"@types/gsap": "1.20.2",
 		"@types/hapi__joi": "15.0.2",
 		"@types/hard-source-webpack-plugin": "1.0.1",
