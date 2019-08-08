@@ -45,7 +45,7 @@
 		"include-nodecg": "0.0.1-5",
 		"lodash": "4.17.15",
 		"moment": "2.24.0",
-		"nodecg": "1.4.1",
+		"nodecg": "1.5.0",
 		"twit": "2.2.11"
 	},
 	"devDependencies": {
