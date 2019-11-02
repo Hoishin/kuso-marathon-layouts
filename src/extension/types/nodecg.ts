@@ -53,7 +53,8 @@ export interface Timer {
 	results: ({time: number; state: TimerState} | null)[];
 }
 
-export interface ReplicantMap {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+export type ReplicantMap = {
 	schedule: Run[];
 	currentRunIndex: number;
 	tweets: Tweet[];
@@ -77,9 +78,10 @@ export interface ReplicantMap {
 		sum: string;
 		url: string;
 	}[];
-}
+};
 
-export interface MessageMap {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+export type MessageMap = {
 	showTweet: {
 		data: Tweet;
 	};
@@ -95,4 +97,4 @@ export interface MessageMap {
 	updateSchedule: {};
 	previousRun: {};
 	nextRun: {};
-}
+};

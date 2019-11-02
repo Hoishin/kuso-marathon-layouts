@@ -1,13 +1,25 @@
 import {useEffect, useState} from 'react';
 import _ from 'lodash';
-import {ReplicantBrowser} from 'ts-nodecg/helper/replicant';
+import {Replicant} from 'ts-nodecg/browser';
 
-export const useReplicant = <TSchema, TRepName extends string>(
-	replicant: ReplicantBrowser<TSchema, 'kuso-marathon-layouts', TRepName>,
-): [TSchema | undefined, (newValue: TSchema) => void] => {
-	const [value, updateValue] = useState<TSchema | undefined>(undefined);
+import {ReplicantMap} from '../extension/types/nodecg';
 
-	const changeHandler = (newValue: TSchema): void => {
+export const useReplicant = <TRepName extends keyof ReplicantMap>(
+	replicant: Replicant<
+		'kuso-marathon-layouts',
+		ReplicantMap,
+		TRepName,
+		ReplicantMap[TRepName] | undefined
+	>,
+): [
+	ReplicantMap[TRepName] | undefined,
+	(newValue: ReplicantMap[TRepName]) => void,
+] => {
+	const [value, updateValue] = useState<ReplicantMap[TRepName] | undefined>(
+		undefined,
+	);
+
+	const changeHandler = (newValue: ReplicantMap[TRepName]): void => {
 		updateValue(_.clone(newValue));
 	};
 

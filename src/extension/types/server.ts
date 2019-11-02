@@ -4,8 +4,8 @@ import {ReplicantMap, MessageMap} from './nodecg';
 import {Configschema} from './configschema';
 
 export type NodeCG = CreateNodecgInstance<
-	Configschema,
 	'kuso-marathon-layouts',
+	Configschema,
 	ReplicantMap,
 	MessageMap
 >;

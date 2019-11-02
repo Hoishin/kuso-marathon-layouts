@@ -11,15 +11,15 @@ export interface FontFaceSet {
 }
 
 export type NodecgInstance = CreateNodecgInstance<
-	Configschema,
 	'kuso-marathon-layouts',
+	Configschema,
 	ReplicantMap,
 	MessageMap
 >;
 
 export type NodecgConstructor = CreateNodecgConstructor<
-	Configschema,
 	'kuso-marathon-layouts',
+	Configschema,
 	ReplicantMap,
 	MessageMap
 >;
