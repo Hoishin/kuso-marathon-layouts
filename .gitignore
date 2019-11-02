@@ -4,6 +4,7 @@
 /cfg
 /db
 /bundle-analyzer
+/.nodecg
 
 # Logs
 logs
