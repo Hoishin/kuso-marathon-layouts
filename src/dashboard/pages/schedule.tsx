@@ -145,9 +145,7 @@ const Schedule: React.FunctionComponent = () => {
 					target='_blank'
 					href={
 						nodecg.bundleConfig.google &&
-						`https://docs.google.com/spreadsheets/d/${
-							nodecg.bundleConfig.google.spreadsheetId
-						}`
+						`https://docs.google.com/spreadsheets/d/${nodecg.bundleConfig.google.spreadsheetId}`
 					}
 				>
 					編集する

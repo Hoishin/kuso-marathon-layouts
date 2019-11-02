@@ -74,7 +74,12 @@ const LogoArea: FunctionComponentWithClassName = (props) => {
 				<img src={eventLogo} />
 			</div>
 			{sponsorAssets && (
-				<div ref={sponsorRef} style={{gridTemplateColumns: `repeat(${sponsorAssets.length}, 1fr)`}}>
+				<div
+					ref={sponsorRef}
+					style={{
+						gridTemplateColumns: `repeat(${sponsorAssets.length}, 1fr)`,
+					}}
+				>
 					{sponsorAssets.map((asset) => (
 						<img src={asset.url} key={asset.sum} />
 					))}
