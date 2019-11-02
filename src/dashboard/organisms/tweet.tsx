@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import {Tweet} from '../../extension/types/nodecg';
 import InfoBlock from '../molecules/info-block';
 import sendIcon from '../assets/send.svg';

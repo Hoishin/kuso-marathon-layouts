@@ -1,6 +1,7 @@
 import React, {useRef, useEffect} from 'react';
 import styled from 'styled-components';
 import {TweenLite, TimelineMax} from 'gsap';
+
 import eventLogo from '../assets/logo.png';
 import {boxBackground} from '../styles';
 import {FunctionComponentWithClassName} from '../../types/react';

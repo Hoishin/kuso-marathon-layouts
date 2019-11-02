@@ -1,7 +1,9 @@
 import {setInterval} from 'timers';
+
 import {google} from 'googleapis';
 import _ from 'lodash';
 import * as moment from 'moment';
+
 import {NodeCG} from './types/server';
 import {Participant, Run} from './types/nodecg';
 

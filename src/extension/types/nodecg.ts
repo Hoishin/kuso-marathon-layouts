@@ -1,11 +1,11 @@
-export type Participant = {
+export interface Participant {
 	name: string;
 	twitch?: string;
 	twitter?: string;
 	nico?: string;
-};
+}
 
-export type Run = {
+export interface Run {
 	index: number;
 	game: string;
 	category: string;
@@ -18,9 +18,9 @@ export type Run = {
 	startTime: number;
 	platform: string;
 	imageUrl: string | null;
-};
+}
 
-export type Tweet = {
+export interface Tweet {
 	id: string;
 	user: {
 		icon: string;
@@ -28,19 +28,19 @@ export type Tweet = {
 		screenName: string;
 	};
 	content: string;
-};
+}
 
-export type Info = {
+export interface Info {
 	content: string;
 	enabled: boolean;
-};
+}
 
 export enum TimerState {
 	Stopped = 'stopped',
 	Running = 'running',
 	Finished = 'finished',
 }
-export type Timer = {
+export interface Timer {
 	/**
 	 * in second
 	 */
@@ -51,9 +51,9 @@ export type Timer = {
 	lastTickTime: number;
 	state: TimerState;
 	results: ({time: number; state: TimerState} | null)[];
-};
+}
 
-export type ReplicantMap = {
+export interface ReplicantMap {
 	schedule: Run[];
 	currentRunIndex: number;
 	tweets: Tweet[];
@@ -77,9 +77,9 @@ export type ReplicantMap = {
 		sum: string;
 		url: string;
 	}[];
-};
+}
 
-export type MessageMap = {
+export interface MessageMap {
 	showTweet: {
 		data: Tweet;
 	};
@@ -95,4 +95,4 @@ export type MessageMap = {
 	updateSchedule: {};
 	previousRun: {};
 	nextRun: {};
-};
+}

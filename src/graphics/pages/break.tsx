@@ -2,6 +2,7 @@ import 'modern-normalize/modern-normalize.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
+
 import BasePage from '../base-page';
 import frameImg from '../assets/frames/break.png';
 import {GlobalStyle} from '../styles';

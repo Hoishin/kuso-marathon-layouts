@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
+
 import {boxBackground, textStyle} from '../styles';
 import {FunctionComponentWithClassName} from '../../types/react';
 import gameImageFrame from '../assets/game-image-frame.png';

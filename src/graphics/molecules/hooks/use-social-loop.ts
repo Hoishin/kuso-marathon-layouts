@@ -1,5 +1,6 @@
 import {useState, useRef, useEffect} from 'react';
 import {TweenLite, TimelineMax} from 'gsap';
+
 import {Participant} from '../../../extension/types/nodecg';
 
 export const useSocialLoop = (participant: Participant | undefined) => {

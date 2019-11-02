@@ -1,4 +1,5 @@
 import {css, createGlobalStyle} from 'styled-components';
+
 import yasashisaGothic from './assets/07YasashisaGothic/07YasashisaGothic.woff2';
 
 const YASASHISA_GOTHIC = '07YasashisaGothic';

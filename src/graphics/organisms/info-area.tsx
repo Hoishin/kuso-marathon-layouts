@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import styled from 'styled-components';
 import {TimelineMax, TweenLite, TimelineLite, Power2, Linear} from 'gsap';
 import _ from 'lodash';
+
 import {textStyle, absoluteCenterContent, boxBackground} from '../styles';
 import {FunctionComponentWithClassName} from '../../types/react';
 import FitText from '../../shared/atoms/fit-text';

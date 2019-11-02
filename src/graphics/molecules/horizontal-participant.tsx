@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import {FunctionComponentWithClassName} from '../../types/react';
 import FitText from '../../shared/atoms/fit-text';
 import {textStyle, absoluteCenterContent} from '../styles';
 import SocialIcon from '../atoms/social-icon';
 import ParticipantIcon, {ParticipantType} from '../atoms/participant-icon';
 import {Participant} from '../../extension/types/nodecg';
+
 import {useSocialLoop} from './hooks/use-social-loop';
 
 const INFO_ROW_GAP = 4;

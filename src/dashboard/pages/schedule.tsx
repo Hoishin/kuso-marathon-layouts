@@ -1,6 +1,7 @@
 import 'modern-normalize/modern-normalize.css';
 import React from 'react';
 import styled, {css} from 'styled-components';
+
 import {render} from '../render';
 import InfoBlock from '../molecules/info-block';
 import {FunctionComponentWithClassName} from '../../types/react';

@@ -1,6 +1,7 @@
 import 'modern-normalize/modern-normalize.css';
 import React from 'react';
 import styled, {css} from 'styled-components';
+
 import {render} from '../render';
 import editIcon from '../assets/edit.svg';
 import pauseIcon from '../assets/pause.svg';
