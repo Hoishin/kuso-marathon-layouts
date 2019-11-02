@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import {FunctionComponentWithClassName} from '../../types/react';
 import {boxBackground} from '../styles';
 import HorizontalParticipant from '../molecules/horizontal-participant';

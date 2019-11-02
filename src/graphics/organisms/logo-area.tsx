@@ -1,6 +1,7 @@
 import React, {useRef, useEffect} from 'react';
 import styled from 'styled-components';
 import {TweenLite, TimelineMax} from 'gsap';
+
 import eventLogo from '../assets/logo.png';
 import {boxBackground} from '../styles';
 import {FunctionComponentWithClassName} from '../../types/react';
@@ -73,7 +74,12 @@ const LogoArea: FunctionComponentWithClassName = (props) => {
 				<img src={eventLogo} />
 			</div>
 			{sponsorAssets && (
-				<div ref={sponsorRef} style={{gridTemplateColumns: `repeat(${sponsorAssets.length}, 1fr)`}}>
+				<div
+					ref={sponsorRef}
+					style={{
+						gridTemplateColumns: `repeat(${sponsorAssets.length}, 1fr)`,
+					}}
+				>
 					{sponsorAssets.map((asset) => (
 						<img src={asset.url} key={asset.sum} />
 					))}

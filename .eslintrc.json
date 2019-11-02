@@ -1,17 +1,25 @@
 {
-	"plugins": ["react-hooks"],
-	"extends": ["@hoishin/ts", "prettier", "prettier/@typescript-eslint"],
-	"parserOptions": {
-		"project": "./tsconfig.json"
-	},
+	"extends": ["hoishin/typescript"],
 	"rules": {
-		"default-case": 0,
-		"consistent-return": 0,
+		"import/named": 0,
+		"import/namespace": 0,
+
+		"@typescript-eslint/generic-type-naming": 0,
+		"@typescript-eslint/strict-boolean-expressions": 0,
+		"new-cap": [2, {"capIsNewExceptions": ["nodecg.Replicant"]}],
+		"@typescript-eslint/no-magic-numbers": 0,
+		"@typescript-eslint/ban-ts-ignore": 1,
+		"@typescript-eslint/no-unused-vars": 0,
+		"@typescript-eslint/no-floating-promises": 0,
+		"@typescript-eslint/no-unnecessary-condition": 0,
+		"max-statements": 0,
+		"unicorn/consistent-function-scoping": 0,
 		"require-unicode-regexp": 0,
 		"@typescript-eslint/camelcase": 0,
-		"@typescript-eslint/promise-function-async": 0,
-		"@typescript-eslint/explicit-function-return-type": 0,
-		"react-hooks/rules-of-hooks": 2,
-		"react-hooks/exhaustive-deps": 2
+		"no-underscore-dangle": 0,
+		"@typescript-eslint/no-misused-promises": 0,
+		"@typescript-eslint/restrict-plus-operands": 0,
+		"default-case": 0,
+		"@typescript-eslint/no-explicit-any": 1
 	}
 }

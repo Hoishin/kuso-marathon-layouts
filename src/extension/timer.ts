@@ -1,4 +1,5 @@
 import {clearInterval, setInterval} from 'timers';
+
 import {NodeCG} from './types/server';
 import {TimerState} from './types/nodecg';
 

@@ -1,4 +1,5 @@
 import {CreateNodecgConstructor, CreateNodecgInstance} from 'ts-nodecg/browser';
+
 import {ReplicantMap, MessageMap} from '../extension/types/nodecg';
 import {Configschema} from '../extension/types/configschema';
 
@@ -10,19 +11,17 @@ export interface FontFaceSet {
 }
 
 export type NodecgInstance = CreateNodecgInstance<
-	Configschema,
 	'kuso-marathon-layouts',
+	Configschema,
 	ReplicantMap,
-	MessageMap,
-	false
+	MessageMap
 >;
 
 export type NodecgConstructor = CreateNodecgConstructor<
-	Configschema,
 	'kuso-marathon-layouts',
+	Configschema,
 	ReplicantMap,
-	MessageMap,
-	false
+	MessageMap
 >;
 
 declare global {

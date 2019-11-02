@@ -2,6 +2,7 @@ import 'modern-normalize/modern-normalize.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
+
 import BasePage from '../base-page';
 import frameImg from '../assets/frames/break.png';
 import {GlobalStyle} from '../styles';
@@ -92,8 +93,7 @@ const Page = () => {
 				<RunInfo2 indexFn={(n) => n - 1} />
 				<RunInfo3 indexFn={(n) => n + 1} />
 				<RunInfo4 indexFn={(n) => n + 2} />
-				<Logo>
-				</Logo>
+				<Logo></Logo>
 				<Loading src={loadingImage} />
 				<NextIcon src={nextIcon} />
 				<PrevIcon src={prevIcon} />
