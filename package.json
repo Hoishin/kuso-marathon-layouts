@@ -42,7 +42,7 @@
 	},
 	"prettier": "@hoishin/prettierrc",
 	"dependencies": {
-		"@hapi/joi": "^16.1.7",
+		"@hapi/joi": "^17.0.0",
 		"googleapis": "^45.0.0",
 		"include-nodecg": "^0.0.3",
 		"lodash": "^4.17.15",
