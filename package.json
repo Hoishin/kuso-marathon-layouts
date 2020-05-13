@@ -43,7 +43,7 @@
 	"prettier": "@hoishin/prettierrc",
 	"dependencies": {
 		"@hapi/joi": "^17.0.0",
-		"googleapis": "^48.0.0",
+		"googleapis": "^51.0.0",
 		"include-nodecg": "^0.0.3",
 		"lodash": "^4.17.15",
 		"moment": "^2.24.0",
