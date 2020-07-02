@@ -1418,9 +1418,9 @@
     "@types/node" "*"
 
 "@types/node@*":
-  version "13.7.6"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.7.6.tgz#cb734a7c191472ae6a2b3a502b4dfffcea974113"
-  integrity sha512-eyK7MWD0R1HqVTp+PtwRgFeIsemzuj4gBFSQxfPHY5iMjS7474e5wq+VFgTcdpyHeNxyKSaetYAjdMLJlKoWqA==
+  version "14.0.14"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.14.tgz#24a0b5959f16ac141aeb0c5b3cd7a15b7c64cbce"
+  integrity sha512-syUgf67ZQpaJj01/tRTknkMNoBBLWJOBODF0Zm4NrXmiSuxjymFrxnTu1QVYRubhVkRcZLYZG8STTwJRdVm/WQ==
 
 "@types/node@^10.14.22", "@types/node@^10.14.4":
   version "10.17.17"
@@ -1540,9 +1540,9 @@
   integrity sha512-/gG2M/Imw7cQFp8PGvz/SwocNrmKFjFsm5Pb8HdbHkZ1K8pmuPzOX4VeVoiEecFCVf4CsN1r3/BRvx+6sNqwtQ==
 
 "@types/twit@^2.2.23":
-  version "2.2.23"
-  resolved "https://registry.yarnpkg.com/@types/twit/-/twit-2.2.23.tgz#e76962f5d4a4c74617ebc55ed36dba62ce0b0fe6"
-  integrity sha512-r7hqCaOjlzOEtpCM2z+mwCNKXxc9SZAAPL86QVun+TcgrsBfdeQX7s8cf/9QNJVNwTfLC69Yof0zc7G31p09xQ==
+  version "2.2.24"
+  resolved "https://registry.yarnpkg.com/@types/twit/-/twit-2.2.24.tgz#20ec1cf1f6ab362393dd18b8271538d2456fd717"
+  integrity sha512-VUAPyx3tDlQjzJCLqClNjI9yWha7UCCdwGMnO2LeH5W9CA48PdsmNAKxGwbVVc7aMB5Wv3nZQ2WUaSAVAS/49Q==
   dependencies:
     "@types/geojson" "*"
     "@types/node" "*"
