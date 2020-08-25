@@ -1568,7 +1568,7 @@
   dependencies:
     "@types/webpack" "*"
 
-"@types/webpack-node-externals@^1.6.3":
+"@types/webpack-node-externals@^1.7.1":
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/@types/webpack-node-externals/-/webpack-node-externals-1.7.1.tgz#73d0d7ae0e98cfbd69b7443388302cd69217494a"
   integrity sha512-kbO2gYPKvMb5j1KOgnIuUH52CKul9Ud4b10J5n+JX8oHmgu86hYpBVfrV4bMDe5lhCaO64h8QrKz7WnRZzqkbA==
