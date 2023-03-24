@@ -1,4 +1,4 @@
-FROM node:10-alpine AS build
+FROM node:19-alpine AS build
 
 RUN apk add --no-cache git
 
@@ -10,7 +10,7 @@ COPY src ./src
 RUN NODE_ENV=production yarn build
 
 
-FROM node:10-alpine AS fetchNodeModules
+FROM node:19-alpine AS fetchNodeModules
 
 RUN apk add --no-cache git
 
@@ -19,7 +19,7 @@ COPY package.json yarn.lock ./
 RUN yarn install --production --frozen-lockfile
 
 
-FROM node:10-alpine
+FROM node:19-alpine
 
 RUN apk add --no-cache git
 
